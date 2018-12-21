@@ -5,7 +5,7 @@
 #ifndef MP3_PLAYLISTOBSERVER_H
 #define MP3_PLAYLISTOBSERVER_H
 
-
+#include <list>
 #include "Observer.h"
 #include "DisplayElements.h"
 #include "Playlist.h"
@@ -13,11 +13,17 @@
 
 class PlaylistObserver  : public Observer, public DisplayElements {
 public:
-    void update();
-    void display();
+    explicit PlaylistObserver(Playlist* pl);
+    void update() override;
+    void display() override;
+    ~PlaylistObserver() override = default;
 
 private:
     Playlist* playlist;
+    std::list <AudioTrack> audioTracks;
+    std::string playlistName;
+    bool playlistLoop;
+    bool playlitstShuffle;
 };
 
 

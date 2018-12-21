@@ -10,12 +10,26 @@
 template <typename T>
 class ConcreteController : public Controller {
 public:
-    void playAudioTrack() override;
-    void restart() override;
-    void pause() override;
-    void add() override;
-    void remove() override;
-    void move() override;
+    explicit ConcreteController(T* obj) : object(obj) {};
+    void playAudioTrack() override {
+        object->playAudioTrack;
+    }
+    void restart() override {
+        object->restart();
+    }
+    void pause() override {
+        object->pause();
+    }
+    void add() override {
+        object->add();
+    }
+    void remove() override {
+        object->remove();
+    }
+    void move() override {
+        object->move();
+    }
+    ~ConcreteController() override = default ;
 
 private:
     T* object;

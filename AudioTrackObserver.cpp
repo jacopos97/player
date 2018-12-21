@@ -4,11 +4,14 @@
 
 #include "AudioTrackObserver.h"
 
-void AudioTrackObserver::update() {
 
+void AudioTrackObserver::update() {
+    currentAudioTrackTime = audioTrack->getCurrentTime();
+    display();
 }
 
 
 void AudioTrackObserver::display() {
 
 }
+

@@ -32,20 +32,47 @@ void Playlist::moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std
 
 
 void Playlist::playAudioTrack(AudioTrack audioTrack) {
-    auto it = audioTracks.begin();
-    while (*it == audioTrack || it != audioTracks.end())
-        it++;
-    if (it != audioTracks.end()){
+    auto desiredAudioTrackIterator = audioTracks.begin();
+    while (*desiredAudioTrackIterator == audioTrack || desiredAudioTrackIterator != audioTracks.end())
+        desiredAudioTrackIterator++;
+    if (desiredAudioTrackIterator != audioTracks.end()){
         if (!shuffle){
+            auto it = desiredAudioTrackIterator;
             while (it != audioTracks.end()) {
                 it->playAudioTrack();
                 it++;
             }
-            if (loop)
-                this->play();
         }
-        else {//TODO: implement playAudioTrack() with shuffle
+        else {
+            std::list <AudioTrack> copyAudioTracks;
+            auto copyIterator = audioTracks.begin();
+            std::list<AudioTrack>::iterator copyDesiredAudioTrackIterator;
+            while (copyIterator != audioTracks.end()) {
+                copyAudioTracks.push_back(*copyIterator);
+                if (copyIterator == desiredAudioTrackIterator){
+                    copyDesiredAudioTrackIterator = copyAudioTracks.end();
+                    copyDesiredAudioTrackIterator--;
+                }
+                copyIterator++;
+            }
+            copyDesiredAudioTrackIterator->playAudioTrack();
+            copyAudioTracks.erase(copyDesiredAudioTrackIterator);
+            srand(time(NULL));
+            unsigned long randValue;
+            while (copyAudioTracks.begin() != copyAudioTracks.end()){
+                randValue = rand()%copyAudioTracks.size() + 1;
+                auto it = copyAudioTracks.begin();
+                unsigned long i = 1;
+                while (i != randValue) {
+                    it++;
+                    i++;
+                }
+                it->playAudioTrack();
+                copyAudioTracks.erase(it);
+            }
         }
+        if (loop)
+            this->play();
     }
 }
 
@@ -59,11 +86,30 @@ void Playlist::play() {
             it->playAudioTrack();
             it++;
         }
-        if (loop)
-            this->play();
     }
-    else{//TODO: implement playAudioTrack() with shuffle
+    else{
+        std::list <AudioTrack> copyAudioTracks;
+        auto copyIterator = audioTracks.begin();
+        while (copyIterator != audioTracks.end()) {
+            copyAudioTracks.push_back(*copyIterator);
+            copyIterator++;
+        }
+        srand(time(NULL));
+        unsigned long randValue;
+        while (copyAudioTracks.begin() != copyAudioTracks.end()){
+            randValue = rand()%copyAudioTracks.size() + 1;
+            auto it1 = copyAudioTracks.begin();
+            unsigned long i = 1;
+            while (i != randValue) {
+                it1++;
+                i++;
+            }
+            it1->playAudioTrack();
+            copyAudioTracks.erase(it1);
+        }
     }
+    if (loop)
+        this->play();
 }
 
 
@@ -94,9 +140,6 @@ void Playlist::setShuffle(bool shuffle) {
     Playlist::shuffle = shuffle;
 }
 
-Playlist::~Playlist() {
-
-}
 
 bool Playlist::operator==(const Playlist p) {
     if (name == p.name){
@@ -137,6 +180,39 @@ std::list<AudioTrack>::iterator Playlist::getBeginIterator() {
 std::list<AudioTrack>::iterator Playlist::getEndIterator() {
     return audioTracks.end();
 }
+
+AudioTrack Playlist::getAudioTrack(unsigned long pos) {
+    auto it = audioTracks.begin();
+    unsigned long i = 1;
+    while (i != pos ) {
+        it++;
+        i++;
+    }
+    return *it;
+}
+
+unsigned long Playlist::getSize() const {
+    return audioTracks.size();
+}
+
+void Playlist::registerObserver(Observer *o) {
+    observers.push_back(o);
+}
+
+void Playlist::removeObserver(Observer *o) {
+    observers.remove(o);
+}
+
+void Playlist::notifyObserver() {
+    auto it = observers.begin();
+    while (it != observers.end()) {
+        (*it)->update();
+        it++;
+    }
+}
+
+
+
 
 
 

@@ -1,22 +1,23 @@
 //
-// Created by jacopo on 03/11/18.
+// Created by jacopo on 18/11/18.
 //
 
 #ifndef MP3_SUBJECT_H
 #define MP3_SUBJECT_H
 
+
+#include <list>
 #include "Observer.h"
+
 
 class Subject {
 public:
-    virtual void registerObserver (Observer* o) ;
-    virtual void removeObserver (Observer* o) ;
-    virtual void notifyObserver(Observer* o) const ;
-
+    virtual void registerObserver(Observer *o) = 0;
+    virtual void removeObserver(Observer *o) = 0;
+    virtual void notifyObserver() = 0;
 protected:
-    virtual ~Subject() = 0 {};
+    virtual ~Subject() {};
 };
-
 
 
 

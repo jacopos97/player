@@ -8,12 +8,14 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <iterator>
+#include <time.h>
 #include "Subject.h"
 #include "AudioTrack.h"
 #include "Playlist.h"
 
 
-class MusicLibrary: public Subject {
+class MusicLibrary : public Subject {
 public:
     MusicLibrary() : loop(false), shuffle(false) {};
     Playlist newPlaylist ();
@@ -21,20 +23,28 @@ public:
     void removePlaylist (Playlist playlist);
     void playPlaylist(Playlist playlist);
     void play();
-    void playAudiotrack(AudioTrack audioTrack);
+    void playAudioTrack(AudioTrack audioTrack);
     bool isLoop() const;
     void setLoop(bool loop);
     bool isShuffle() const;
     void setShuffle(bool shuffle);
     std::list <Playlist>::iterator getEndPlaylistsIterator();
+    std::list <Playlist>::iterator getBeginPlaylistsIterator();
+    std::list <AudioTrack>::iterator getBeginAudioTracksIterator();
+    unsigned long getAudioTracksSize();
+    unsigned long getPlaylistsSize();
     Playlist selectPlaylist(int pos);
-    ~MusicLibrary() = default;
+    void registerObserver (Observer *o) override;
+    void removeObserver (Observer *o) override;
+    void notifyObserver () override;
+    ~MusicLibrary() override = default;
 
 private:
     bool loop;
     bool  shuffle;
     std::list <Playlist> playlists;
-    std::list <AudioTrack> audiotracks;
+    std::list <AudioTrack> audioTracks;
+    std::list <Observer*> observers;
 };
 
 

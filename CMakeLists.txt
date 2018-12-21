@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 11)
 
 find_package(wxWidgets REQUIRED COMPONENTS net core base)
 include(${wxWidgets_USE_FILE})
-add_executable(MP3 main.cpp AudioTrack.cpp AudioTrack.h Playlist.cpp Playlist.h MusicLibrary.cpp MusicLibrary.h Subject.h Observer.h TestAudioTrack.h Controller.h ConcreteController.cpp ConcreteController.h AudioTrackObserver.cpp AudioTrackObserver.h DisplayElements.h PlaylistObserver.cpp PlaylistObserver.h MusicLibraryObserver.cpp MusicLibraryObserver.h TestPlaylist.h TestMusicLibrary.h)
-target_link_libraries(MP3 ${wxWidgets_LIBRARIES})
+add_subdirectory(test)
+set(SOURCE_FILES AudioTrack.cpp AudioTrack.h Playlist.cpp Playlist.h MusicLibrary.cpp MusicLibrary.h Observer.h Controller.h ConcreteController.h AudioTrackObserver.cpp AudioTrackObserver.h DisplayElements.h PlaylistObserver.cpp PlaylistObserver.h MusicLibraryObserver.cpp MusicLibraryObserver.h Subject.h)
+add_executable(MP3 main.cpp )
+add_library(core ${SOURCE_FILES})
+target_link_libraries(MP3 core ${wxWidgets_LIBRARIES})
 

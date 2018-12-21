@@ -10,7 +10,7 @@ public:
     virtual void display() = 0;
 
 protected:
-    virtual ~DisplayElements() {};
+    virtual ~DisplayElements() = 0;
 };
 
 #endif //MP3_DISPLAYELEMENTS_H

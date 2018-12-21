@@ -5,14 +5,14 @@
 #ifndef MP3_OBSERVER_H
 #define MP3_OBSERVER_H
 
-#include "Controller.h"
+
 
 class Observer {
 public:
-    virtual void update() = 0;// lista di parametri??
+    virtual void update() = 0;
 
 protected:
-    virtual ~Observer() = default;
+    virtual ~Observer() = 0 ;
 };
 
 #endif //MP3_OBSERVER_H

@@ -9,13 +9,15 @@
 #include <string>
 #include <iostream>
 #include <iterator>
+#include <utility>
+#include <time.h>
 #include "Subject.h"
 #include "AudioTrack.h"
 
 
-class Playlist: public Subject {
+class Playlist : public Subject {
 public:
-    explicit Playlist(std::string n = "NewPlaylist") : name(std::move(n), loop(false), shuffle(false){};
+    explicit Playlist(std::string n = "NewPlaylist") : name(std::move(n)), loop(false), shuffle(false){};
     bool operator==(Playlist p);
     bool operator!=(Playlist p);
     void addTrack(AudioTrack audioTrack);
@@ -30,14 +32,18 @@ public:
     const std::string &getName() const;
     std::list<AudioTrack>::iterator  getBeginIterator();
     std::list<AudioTrack>::iterator getEndIterator();
-    ~Playlist() = default;
-
-
+    ~Playlist() override = default;
+    AudioTrack getAudioTrack(unsigned long pos);
+    unsigned long getSize() const;
+    void registerObserver (Observer *o) override;
+    void removeObserver (Observer *o) override;
+    void notifyObserver () override;
 private:
     std::list <AudioTrack> audioTracks;
     std::string name;
     bool loop;
     bool shuffle;
+    std::list <Observer*> observers;
 };
 
 
