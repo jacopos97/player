@@ -6,13 +6,12 @@
 
 
 void AudioTrack::playAudioTrack() {
-
+    fileMedia.Play();
 }
 
 
 void AudioTrack::restart() {
     currentTime = 0;
-    //currentTime = wxDefaultPosition;
     this->playAudioTrack();
 }
 
@@ -37,27 +36,18 @@ const std::string &AudioTrack::getTitle() const {
     return title;
 }
 
+/*
 const std::string &AudioTrack::getFileName() const {
     return fileName;
 }
+*/
 
-/*
- wxPoint AudioTrack::getCurrentTime() const {
-    return currentTime;
-}
 
-const wxSize AudioTrack::getAudioTrackTime() const  {
-    return audioTrackTime;
-}
-
-const wxString &AudioTrack::getTitle() const {
-    return title;
-}
 
 const wxString &AudioTrack::getFileName() const {
     return fileName;
  }
-*/
+
 
 const std::string &AudioTrack::getAuthor() const {
     return author;
@@ -68,7 +58,7 @@ const std::string &AudioTrack::getImage() const {
 }
 
 void AudioTrack::pause() {
-
+     fileMedia.Pause();
 }
 
 void AudioTrack::registerObserver(Observer *o) {

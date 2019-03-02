@@ -11,11 +11,7 @@ void Playlist::addTrack(AudioTrack audioTrack) {
 
 
 void Playlist::removeTrack(AudioTrack audioTrack) {
-    auto it = audioTracks.begin();
-    while (*it != audioTrack && it != audioTracks.end())
-        it++;
-    if (*it == audioTrack)
-        audioTracks.erase(it);
+    audioTracks.remove(audioTrack);
 }
 
 
@@ -209,6 +205,10 @@ void Playlist::notifyObserver() {
         (*it)->update();
         it++;
     }
+}
+
+void Playlist::changeName(std::string n) {
+    name = std::move(n);
 }
 
 

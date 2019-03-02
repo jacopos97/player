@@ -28,11 +28,8 @@ private:
 
     const std::string audioTrackAuthor;
     const std::string audioTrackImage;
-    /*
-    const wxSize audioTrackTime;
-    wxPoint currentAudioTrackTime;
-    const wxString audioTrackTitle;
-    */
+
+
 
 };
 

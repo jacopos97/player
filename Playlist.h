@@ -25,6 +25,7 @@ public:
     void moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPosition);
     void playAudioTrack(AudioTrack audioTrack);
     void play();
+    void changeName(std::string n);
     bool isLoop() const;
     void setLoop(bool loop);
     bool isShuffle() const;
@@ -38,6 +39,8 @@ public:
     void registerObserver (Observer *o) override;
     void removeObserver (Observer *o) override;
     void notifyObserver () override;
+
+
 private:
     std::list <AudioTrack> audioTracks;
     std::string name;
