@@ -87,19 +87,19 @@ protected:
     virtual void menuItemAudioTrackDeleteOnMenuSelection( wxCommandEvent& event );
 
 
- //   virtual void drawMusicLibraryFrame();
+
     virtual void playlistListItemOnClick( wxCommandEvent& event);
     virtual void audioTrackListItemOnClick( wxCommandEvent& event);
     virtual void menuItemPlaylistAddTrackOnMenuSelection( wxCommandEvent& event );
     virtual void menuItemPlaylistDeleteTrackOnMenuSelection( wxCommandEvent& event );
     virtual void menuItemPlaylistChangeNameOnMenuSelection( wxCommandEvent& event );
-    // virtual void buttonHomeOnButtonClick( wxCommandEvent& event );
+
 
 
 	void OnMediaLoaded(wxCommandEvent& event);
 	void newPlaylist();
 	void newAudioTrack();
-	//bool OnExit(wxCommandEventFunction);
+
 
 
 
