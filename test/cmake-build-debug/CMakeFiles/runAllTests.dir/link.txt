@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/runAllTests.dir/runAllTests.cpp.o CMakeFiles/runAllTests.dir/AudioTrackTest.cpp.o CMakeFiles/runAllTests.dir/PlaylistTest.cpp.o CMakeFiles/runAllTests.dir/PlaylistFixture.cpp.o  -o runAllTests lib/libgtestd.a lib/libgtest_maind.a -lcore lib/libgtestd.a -lpthread 

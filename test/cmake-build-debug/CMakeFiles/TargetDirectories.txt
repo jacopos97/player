@@ -1,0 +1,7 @@
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/CMakeFiles/runAllTests.dir
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/lib/googletest/CMakeFiles/rebuild_cache.dir
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/lib/googletest/CMakeFiles/edit_cache.dir
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/lib/googletest/CMakeFiles/gtest_main.dir
+/home/jacopo/CLionProjects/MP3/test/cmake-build-debug/lib/googletest/CMakeFiles/gtest.dir
