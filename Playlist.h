@@ -11,42 +11,47 @@
 #include <iterator>
 #include <utility>
 #include <time.h>
+#include <wx/arrstr.h>
 #include "Subject.h"
 #include "AudioTrack.h"
 
 
 class Playlist : public Subject {
 public:
-    explicit Playlist(std::string n = "NewPlaylist") : name(std::move(n)), loop(false), shuffle(false){};
-    bool operator==(Playlist p);
-    bool operator!=(Playlist p);
-    void addTrack(AudioTrack audioTrack);
-    void removeTrack(AudioTrack audioTrack);
-    void moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPosition);
-    void playAudioTrack(AudioTrack audioTrack);
+    explicit Playlist(const wxString &n = "NewPlaylist") : name(n), loop(false), shuffle(false){};
+    bool operator==(const Playlist& p) const;
+    bool operator!=(const Playlist& p) const;
+    void addTrack(AudioTrack* audioTrack);
+    void removeTrack(int pos);
+    //void moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPositionIterator);
+    void playAudioTrack(AudioTrack* audioTrack);
     void play();
-    void changeName(std::string n);
+    void changeName(wxString n);
     bool isLoop() const;
     void setLoop(bool loop);
     bool isShuffle() const;
     void setShuffle(bool shuffle);
-    const std::string &getName() const;
-    std::list<AudioTrack>::iterator  getBeginIterator();
-    std::list<AudioTrack>::iterator getEndIterator();
+    const wxString &getName() const;
+    std::list<AudioTrack*>::iterator  getBeginIterator();
+    std::list<AudioTrack*>::iterator getEndIterator();
     ~Playlist() override = default;
-    AudioTrack getAudioTrack(unsigned long pos);
+    AudioTrack* getAudioTrack(unsigned long pos);
     unsigned long getSize() const;
     void registerObserver (Observer *o) override;
     void removeObserver (Observer *o) override;
     void notifyObserver () override;
+    wxArrayString getArrayString();
+    int checkAudioTrackPresence(wxString audioTrackTitle);
+    bool checkPossibleDuplicateTrack (wxString audioTrackTitle);
 
 
 private:
-    std::list <AudioTrack> audioTracks;
-    std::string name;
+    std::list <AudioTrack*> audioTracks;
+    wxString name;
     bool loop;
     bool shuffle;
     std::list <Observer*> observers;
+    wxArrayString audioTracksTitles;
 };
 
 

@@ -6,12 +6,12 @@
 #define MP3_SUBJECT_H
 
 
-#include <list>
 #include "Observer.h"
 
 
 class Subject {
 public:
+    //Subject() = default;
     virtual void registerObserver(Observer *o) = 0;
     virtual void removeObserver(Observer *o) = 0;
     virtual void notifyObserver() = 0;

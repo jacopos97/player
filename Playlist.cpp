@@ -5,29 +5,66 @@
 #include "Playlist.h"
 
 
-void Playlist::addTrack(AudioTrack audioTrack) {
-    audioTracks.push_back(audioTrack);
+void Playlist::addTrack(AudioTrack* audioTrack) {
+    auto au = new AudioTrack(*audioTrack);
+    audioTracks.push_back(au);
+    audioTracksTitles.Add((*au).getFileName());
 }
 
 
-void Playlist::removeTrack(AudioTrack audioTrack) {
-    audioTracks.remove(audioTrack);
+void Playlist::removeTrack(int pos) {
+    auto audioTrack = getBeginIterator();
+    for (int index = 0; index < pos; index++)
+        audioTrack++;
+
+    delete *audioTrack;
+    audioTracks.erase(audioTrack);
+    audioTracksTitles.RemoveAt(static_cast<size_t>(pos));
 }
 
 
+/*
+void Playlist::moveTrack(std::list<AudioTrack>::iterator selectedAudioTrackIterator, std::list<AudioTrack>::iterator desiredPositionIterator) {
+    if (selectedAudioTrackIterator != desiredPositionIterator) {
+        auto it1 = audioTracks.begin();
+        int selectedAudioTrackPosition = 1;
+        while (it1 == selectedAudioTrackIterator) {
+            it1++;
+            selectedAudioTrackPosition++;
+        }
+        auto it2 = audioTracks.begin();
+        int desiredPosition = 1;
+        while (it2 == desiredPositionIterator) {
+            it2++;
+            desiredPosition++;
+        }
+        auto it = selectedAudioTrackIterator;
+        auto nextIt = std::next(selectedAudioTrackIterator);
+        if (selectedAudioTrackPosition < desiredPosition) {
+            std::next(selectedAudioTrackIterator) = std::next(desiredPositionIterator);
+            std::next(desiredPositionIterator) = selectedAudioTrackIterator;
+            if (selectedAudioTrackPosition > 1) {
+                it--;
+                std::next(it) = nextIt;
+            }
+        }
+        else {
+            it--;
+            auto prevIt = it;
+            std::next(it) = nextIt;
+            std::next(selectedAudioTrackIterator) = desiredPositionIterator;
+            if (desiredPosition > 1)
+                std::next(prevIt) = selectedAudioTrackIterator;
+        }
 
-void Playlist::moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPosition) {
-    auto it = selectedAudioTrack;
-    it--;
-    std::next(it,1) = std::next(it,2);
-    std::next(selectedAudioTrack,1) = std::next(desiredPosition,1);
-    std::next(desiredPosition,1) = selectedAudioTrack;
+    }
+
 }
 
+*/
 
 
-
-void Playlist::playAudioTrack(AudioTrack audioTrack) {
+void Playlist::playAudioTrack(AudioTrack* audioTrack) {
     auto desiredAudioTrackIterator = audioTracks.begin();
     while (*desiredAudioTrackIterator == audioTrack || desiredAudioTrackIterator != audioTracks.end())
         desiredAudioTrackIterator++;
@@ -35,14 +72,14 @@ void Playlist::playAudioTrack(AudioTrack audioTrack) {
         if (!shuffle){
             auto it = desiredAudioTrackIterator;
             while (it != audioTracks.end()) {
-                it->playAudioTrack();
+                (*it)->playAudioTrack();
                 it++;
             }
         }
         else {
-            std::list <AudioTrack> copyAudioTracks;
+            std::list <AudioTrack*> copyAudioTracks;
             auto copyIterator = audioTracks.begin();
-            std::list<AudioTrack>::iterator copyDesiredAudioTrackIterator;
+            std::list<AudioTrack*>::iterator copyDesiredAudioTrackIterator;
             while (copyIterator != audioTracks.end()) {
                 copyAudioTracks.push_back(*copyIterator);
                 if (copyIterator == desiredAudioTrackIterator){
@@ -51,7 +88,7 @@ void Playlist::playAudioTrack(AudioTrack audioTrack) {
                 }
                 copyIterator++;
             }
-            copyDesiredAudioTrackIterator->playAudioTrack();
+            (*copyDesiredAudioTrackIterator)->playAudioTrack();
             copyAudioTracks.erase(copyDesiredAudioTrackIterator);
             srand(time(NULL));
             unsigned long randValue;
@@ -63,7 +100,7 @@ void Playlist::playAudioTrack(AudioTrack audioTrack) {
                     it++;
                     i++;
                 }
-                it->playAudioTrack();
+                (*it)->playAudioTrack();
                 copyAudioTracks.erase(it);
             }
         }
@@ -79,12 +116,12 @@ void Playlist::play() {
     auto it = audioTracks.begin();
     if (!shuffle){
         while (it != audioTracks.end()){
-            it->playAudioTrack();
+            (*it)->playAudioTrack();
             it++;
         }
     }
     else{
-        std::list <AudioTrack> copyAudioTracks;
+        std::list <AudioTrack*> copyAudioTracks;
         auto copyIterator = audioTracks.begin();
         while (copyIterator != audioTracks.end()) {
             copyAudioTracks.push_back(*copyIterator);
@@ -100,7 +137,7 @@ void Playlist::play() {
                 it1++;
                 i++;
             }
-            it1->playAudioTrack();
+            (*it1)->playAudioTrack();
             copyAudioTracks.erase(it1);
         }
     }
@@ -137,7 +174,7 @@ void Playlist::setShuffle(bool shuffle) {
 }
 
 
-bool Playlist::operator==(const Playlist p) {
+bool Playlist::operator==(const Playlist& p) const {
     if (name == p.name){
         auto it1 = audioTracks.begin();
         auto it2 = p.audioTracks.begin();
@@ -151,7 +188,7 @@ bool Playlist::operator==(const Playlist p) {
     return false;
 }
 
-bool Playlist::operator!=(const Playlist p) {
+bool Playlist::operator!=(const Playlist& p) const {
     if (name == p.name){
         auto it1 = audioTracks.begin();
         auto it2 = p.audioTracks.begin();
@@ -165,19 +202,19 @@ bool Playlist::operator!=(const Playlist p) {
     return true;
 }
 
-const std::string &Playlist::getName() const {
+const wxString &Playlist::getName() const {
     return name;
 }
 
-std::list<AudioTrack>::iterator Playlist::getBeginIterator() {
+std::list<AudioTrack*>::iterator Playlist::getBeginIterator() {
     return audioTracks.begin();
 }
 
-std::list<AudioTrack>::iterator Playlist::getEndIterator() {
+std::list<AudioTrack*>::iterator Playlist::getEndIterator() {
     return audioTracks.end();
 }
 
-AudioTrack Playlist::getAudioTrack(unsigned long pos) {
+AudioTrack* Playlist::getAudioTrack(unsigned long pos) {
     auto it = audioTracks.begin();
     unsigned long i = 1;
     while (i != pos ) {
@@ -207,8 +244,52 @@ void Playlist::notifyObserver() {
     }
 }
 
-void Playlist::changeName(std::string n) {
-    name = std::move(n);
+void Playlist::changeName(wxString n) {
+    name = n;
+}
+
+wxArrayString Playlist::getArrayString() {
+    return audioTracksTitles;
+}
+
+int Playlist::checkAudioTrackPresence(wxString audioTrackTitle) {
+    if(getBeginIterator() != getEndIterator()) {
+        //int index = 0;
+        auto it = getBeginIterator();
+        auto endIterator = getEndIterator();
+        int temp = static_cast<int>(getSize());
+
+        for(int index = 0; index < getSize(); index++) {
+            if ((*it)->getFileName() == audioTrackTitle)
+                temp = index;
+            it++;
+        }
+        return temp;
+        //int size = static_cast<int>(getSize());
+        /*
+        while ((*it)->getFileName() != audioTrackTitle && it != endIterator) {
+            it++;
+            index++;
+        }
+        if (it == endIterator)
+            return static_cast<int>(getSize());
+        else
+            return index;
+            */
+    }
+    else
+        return static_cast<int>(getSize());
+}
+
+bool Playlist::checkPossibleDuplicateTrack(wxString audioTrackTitle) {
+    bool duplicate = false;
+    auto it = getBeginIterator();
+    while (duplicate == false && it != getEndIterator()) {
+        if ((*it)->getFileName() == audioTrackTitle)
+            duplicate = true;
+        it++;
+    }
+    return duplicate;
 }
 
 

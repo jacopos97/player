@@ -7,27 +7,26 @@
 #include <wx/string.h>
 #include <wx/gdicmn.h>
 #include "Observer.h"
-#include "DisplayElements.h"
 #include "AudioTrack.h"
 
 
 
-class AudioTrackObserver : public Observer, public DisplayElements {
+class AudioTrackObserver : public Observer {
 public:
-    explicit AudioTrackObserver(AudioTrack *au) : audioTrack(au), audioTrackTime(au->getAudioTrackTime()), currentAudioTrackTime(au->getCurrentTime()), audioTrackAuthor(au->getAuthor()), audioTrackImage(au->getImage()), audioTrackTitle(au->getTitle()) {};
-    void update() override;
-    void display() override;
+    AudioTrackObserver(AudioTrack* au);
+
+   // void update() override;
+    void display();
     ~AudioTrackObserver() override = default ;
 
 private:
     AudioTrack* audioTrack;
 
-    const int audioTrackTime;
-    int currentAudioTrackTime;
-    const std::string audioTrackTitle;
-
-    const std::string audioTrackAuthor;
-    const std::string audioTrackImage;
+   // int audioTrackTime;
+    //int currentAudioTrackTime;
+    //std::string audioTrackTitle;
+    //std::string audioTrackAuthor;
+    //std::string audioTrackImage;
 
 
 

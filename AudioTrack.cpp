@@ -5,25 +5,32 @@
 #include "AudioTrack.h"
 
 
+
 void AudioTrack::playAudioTrack() {
-    fileMedia.Play();
+
+/*
+
+    fileMedia->Load(filePath);
+
+    fileMedia->Play();
+*/
 }
 
 
 void AudioTrack::restart() {
-    currentTime = 0;
-    this->playAudioTrack();
+    //TODO
+    //this->playAudioTrack();
 }
 
 
-bool AudioTrack::operator==(const AudioTrack a)  {
-    return (audioTrackTime == a.audioTrackTime && author == a.author && title == a.title && image == a.image);
+bool AudioTrack::operator==(const AudioTrack& a) const {
+    return (fileName == a.fileName);
 }
 
-bool AudioTrack::operator!=(const AudioTrack a) {
-    return (audioTrackTime != a.audioTrackTime || author != a.author || title != a.title || image != a.image);
+bool AudioTrack::operator!=(const AudioTrack& a) const {
+    return (fileName != a.fileName);
 }
-
+/*
 int AudioTrack::getCurrentTime() const {
     return currentTime;
 }
@@ -31,11 +38,12 @@ int AudioTrack::getCurrentTime() const {
 const int AudioTrack::getAudioTrackTime() const {
     return audioTrackTime;
 }
-
+ */
+/*
 const std::string &AudioTrack::getTitle() const {
     return title;
 }
-
+*/
 /*
 const std::string &AudioTrack::getFileName() const {
     return fileName;
@@ -48,17 +56,18 @@ const wxString &AudioTrack::getFileName() const {
     return fileName;
  }
 
-
+/*
 const std::string &AudioTrack::getAuthor() const {
     return author;
 }
-
+ */
+/*
 const std::string &AudioTrack::getImage() const {
     return image;
 }
-
+*/
 void AudioTrack::pause() {
-     fileMedia.Pause();
+     //fileMedia.Pause();
 }
 
 void AudioTrack::registerObserver(Observer *o) {
@@ -77,6 +86,7 @@ void AudioTrack::notifyObserver() {
     }
 }
 
-
-
+const wxURI &AudioTrack::getFilePath() const {
+    return filePath;
+}
 

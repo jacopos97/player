@@ -4,25 +4,34 @@
 
 #include "MusicLibrary.h"
 
-Playlist MusicLibrary::newPlaylist() {
-    std::string playlistName;
-    std::cout << "Nome playlist:";
-    std::cin >> playlistName;
-    Playlist playlist(playlistName);
+void MusicLibrary::newPlaylist(wxString playlistName) {
+    //Playlist playlist(playlistName);
+    auto playlist = new Playlist(playlistName);
     playlists.push_back(playlist);
-    int i = static_cast<int>(playlists.size());
-    Playlist pl = selectPlaylist(i);
-    return pl;
+    /*
+    auto it = playlists.end();
+    it--;
+    Playlist pl = *it;
+     */
 }
 
-void MusicLibrary::removePlaylist(Playlist playlist) {
+void MusicLibrary::removePlaylist(int pos) {
     auto it = playlists.begin();
-    while (*it != playlist || it != playlists.end())
+        /*
+    while (*it != playlist)
         it++;
-    if (*it == playlist)
-        playlists.erase(it);
+        */
+    for (int index = 0; index <= pos; index++)
+        it++;
+    /*
+    auto temp = it;
+    temp--;
+    std::next(temp) = std::next(it); //chiedere se vale
+    */
+    delete *it;
+    playlists.erase(it);
 }
-
+/*
 void MusicLibrary::playPlaylist(Playlist playlist) {
     playlist.play();
 }
@@ -31,12 +40,12 @@ void MusicLibrary::play() {
     auto it = audioTracks.begin();
     if (!shuffle){
         while (it != audioTracks.end()){
-            it->playAudioTrack();
+            (*it)->playAudioTrack();
             it++;
         }
     }
     else{
-        std::list <AudioTrack> copyAudioTracks;
+        std::list <AudioTrack*> copyAudioTracks;
         auto copyIterator = audioTracks.begin();
         while (copyIterator != audioTracks.end()) {
             copyAudioTracks.push_back(*copyIterator);
@@ -52,14 +61,14 @@ void MusicLibrary::play() {
                 it1++;
                 i++;
             }
-            it1->playAudioTrack();
+            (*it1)->playAudioTrack();
             copyAudioTracks.erase(it1);
         }
         if (loop)
             this->play();
     }
 }
-
+*/
 bool MusicLibrary::isLoop() const {
     return loop;
 }
@@ -75,23 +84,23 @@ bool MusicLibrary::isShuffle() const {
 void MusicLibrary::setShuffle(bool shuffle) {
     MusicLibrary::shuffle = shuffle;
 }
-
+/*
 void MusicLibrary::playAudioTrack(AudioTrack audioTrack) {
     auto desiredAudioTrackIterator = audioTracks.begin();
-    while (*desiredAudioTrackIterator == audioTrack || desiredAudioTrackIterator != audioTracks.end())
+    while (*(*desiredAudioTrackIterator) == audioTrack || desiredAudioTrackIterator != audioTracks.end())
         desiredAudioTrackIterator++;
     if (desiredAudioTrackIterator != audioTracks.end()){
         if (!shuffle){
             auto it = desiredAudioTrackIterator;
             while (it != audioTracks.end()) {
-                it->playAudioTrack();
+                (*it)->playAudioTrack();
                 it++;
             }
         }
         else {
-            std::list <AudioTrack> copyAudioTracks;
+            std::list <AudioTrack*> copyAudioTracks;
             auto copyIterator = audioTracks.begin();
-            std::list<AudioTrack>::iterator copyDesiredAudioTrackIterator;
+            std::list<AudioTrack*>::iterator copyDesiredAudioTrackIterator;
             while (copyIterator != audioTracks.end()) {
                 copyAudioTracks.push_back(*copyIterator);
                 if (copyIterator == desiredAudioTrackIterator){
@@ -100,7 +109,7 @@ void MusicLibrary::playAudioTrack(AudioTrack audioTrack) {
                 }
                 copyIterator++;
             }
-            copyDesiredAudioTrackIterator->playAudioTrack();
+            (*copyDesiredAudioTrackIterator)->playAudioTrack();
             copyAudioTracks.erase(copyDesiredAudioTrackIterator);
             srand(time(NULL));
             unsigned long randValue;
@@ -112,7 +121,7 @@ void MusicLibrary::playAudioTrack(AudioTrack audioTrack) {
                     it++;
                     i++;
                 }
-                it->playAudioTrack();
+                (*it)->playAudioTrack();
                 copyAudioTracks.erase(it);
             }
         }
@@ -120,33 +129,33 @@ void MusicLibrary::playAudioTrack(AudioTrack audioTrack) {
             this->play();
     }
 }
+*/
 
-Playlist MusicLibrary::selectPlaylist(int pos){
-    auto it = playlists.begin();
-    for (int i = 1; i < pos; i++)
-        it++;
-    return *it;
-}
-
-std::list<Playlist>::iterator MusicLibrary::getEndPlaylistsIterator() {
+std::list<Playlist*>::iterator MusicLibrary::getEndPlaylistsIterator() {
     return playlists.end();
 }
 
-void MusicLibrary::newAudioTrack() {
-
+void MusicLibrary::newAudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl) {
+    //AudioTrack au(fileName, parent);
+    auto au = new AudioTrack(fileName, fileName, mediaCtrl);
+    audioTracks.push_back(au);
+    (*(playlists.begin()))->addTrack(au);
 }
 
-std::list<Playlist>::iterator MusicLibrary::getBeginPlaylistsIterator() {
+std::list<Playlist*>::iterator MusicLibrary::getBeginPlaylistsIterator() {
     return playlists.begin();
 }
 
-std::list<AudioTrack>::iterator MusicLibrary::getBeginAudioTracksIterator() {
+std::list<AudioTrack*>::iterator MusicLibrary::getBeginAudioTracksIterator() {
     return audioTracks.begin();
 }
+
+
 
 unsigned long MusicLibrary::getAudioTracksSize() {
     return audioTracks.size();
 }
+
 
 unsigned long MusicLibrary::getPlaylistsSize() {
     return playlists.size();
@@ -167,4 +176,25 @@ void MusicLibrary::notifyObserver() {
         it++;
     }
 }
+
+void MusicLibrary::removeAudioTrack(int pos) {
+    (*getBeginPlaylistsIterator())->removeTrack(pos);
+    auto audiotrack = getBeginAudioTracksIterator();
+    for (int index = 0; index < pos; index++)
+        audiotrack++;
+    delete *audiotrack;
+    audioTracks.erase(audiotrack);
+}
+
+std::list<AudioTrack*>::iterator MusicLibrary::getEndAudioTracksIterator() {
+    return audioTracks.end();
+}
+
+/*
+void MusicLibrary::changePlaylistName(wxString n, Playlist* playlist) {
+    playlist->changeName(n);
+}
+*/
+
+
 
