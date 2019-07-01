@@ -14,11 +14,11 @@ public:
     //Controller() = default;
     virtual void playAudioTrack() = 0;
     //virtual void restartAudioTrack() = 0;
-    virtual void pauseAudioTrack() =  0;
+    //virtual void pauseAudioTrack() =  0;
     virtual void addTrackPlaylist(AudioTrack* audioTrack, Playlist* playlist) = 0;
     virtual void removeTrackPlaylist(int pos, Playlist* playlist) = 0;
     //virtual void moveTrackPlaylist(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPositionIterator) = 0;
-    virtual void playTrackPlaylist(AudioTrack* audioTrack) = 0;
+    virtual void playTrackPlaylist(Playlist* playlist, AudioTrack* audioTrack) = 0;
     virtual void playPlaylist() = 0;
     virtual void changePlaylistName(wxString n, Playlist* playlist) = 0;
     virtual void setLoopPlaylist(bool loop) = 0;

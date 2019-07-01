@@ -66,7 +66,7 @@ void Playlist::moveTrack(std::list<AudioTrack>::iterator selectedAudioTrackItera
 
 void Playlist::playAudioTrack(AudioTrack* audioTrack) {
     auto desiredAudioTrackIterator = audioTracks.begin();
-    while (*desiredAudioTrackIterator == audioTrack || desiredAudioTrackIterator != audioTracks.end())
+    while (*desiredAudioTrackIterator != audioTrack && desiredAudioTrackIterator != audioTracks.end())
         desiredAudioTrackIterator++;
     if (desiredAudioTrackIterator != audioTracks.end()){
         if (!shuffle){

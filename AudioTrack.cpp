@@ -64,10 +64,11 @@ const std::string &AudioTrack::getImage() const {
     return image;
 }
 */
+/*
 void AudioTrack::pause() {
      //fileMedia.Pause();
 }
-
+*/
 void AudioTrack::registerObserver(Observer *o) {
     observers.push_back(o);
 }

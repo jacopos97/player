@@ -16,11 +16,11 @@ public:
     explicit ConcreteController(MusicLibrary* msl) : audioTrack(nullptr), playlist(nullptr), musicLibrary(msl) {}
     void playAudioTrack() override;
     //void restartAudioTrack() override;
-    void pauseAudioTrack() override;
+    //void pauseAudioTrack() override;
     void addTrackPlaylist(AudioTrack* audioTrack, Playlist* playlist) override;
     void removeTrackPlaylist(int pos, Playlist* playlist) override;
     //void moveTrackPlaylist(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPositionIterator) override;
-    void playTrackPlaylist(AudioTrack* audioTrack) override;
+    void playTrackPlaylist(Playlist* playlist, AudioTrack* audioTrack) override;
     void playPlaylist() override;
     void changePlaylistName(wxString n, Playlist* playlist) override;
     void setLoopPlaylist(bool loop) override;

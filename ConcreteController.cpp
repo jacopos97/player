@@ -12,9 +12,11 @@ void ConcreteController::restartAudioTrack() {
     audioTrack->restart();
 }
 */
+/*
 void ConcreteController::pauseAudioTrack() {
     audioTrack->pause();
 }
+ */
 
 void ConcreteController::addTrackPlaylist(AudioTrack* audioTrack, Playlist* playlist) {
     ConcreteController::playlist = playlist;
@@ -30,8 +32,9 @@ void ConcreteController::moveTrackPlaylist(std::list<AudioTrack>::iterator selec
     playlist->moveTrack(selectedAudioTrack, desiredPositionIterator);
 }
 */
-void ConcreteController::playTrackPlaylist(AudioTrack* audioTrack) {
-    playlist->playAudioTrack(audioTrack);
+void ConcreteController::playTrackPlaylist(Playlist* playlist, AudioTrack* audioTrack) {
+    ConcreteController::playlist = playlist;
+    ConcreteController::playlist->playAudioTrack(audioTrack);
 }
 
 void ConcreteController::playPlaylist() {

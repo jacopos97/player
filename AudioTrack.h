@@ -82,7 +82,7 @@ public:
     bool operator!=(const AudioTrack& a) const;
     void playAudioTrack();
     //void restart();
-    void pause();
+    //void pause();
 
     ~AudioTrack() override = default;
 

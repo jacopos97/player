@@ -237,6 +237,8 @@ void MusicLibraryFrame::buttonShuffleOnButtonClick(wxCommandEvent &event) {
         buttonShuffle->SetBackgroundColour(*wxLIGHT_GREY);
     else
         buttonShuffle->SetBackgroundColour(*wxWHITE);
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        (*playlist)->play();
 }
 
 
@@ -371,9 +373,9 @@ void MusicLibraryFrame::playlistListItemOnClick(wxCommandEvent &event) {
     if (playlist != it) {
         playlist = it;
         updatePlaylist(playlist);
-        if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator())
-            (*playlist)->play();
     }
+    if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator())
+        (*playlist)->play();
 /*
 
     wxBoxSizer* bSizerMainFrame;
@@ -580,7 +582,7 @@ void MusicLibraryFrame::menuItemPlaylistChangeNameOnMenuSelection(wxCommandEvent
 }
 
 void MusicLibraryFrame::audioTrackListItemOnClick(wxCommandEvent &event) {
-    auto audioTrackPos = audioTrackList->GetSelection();
+    int audioTrackPos = audioTrackList->GetSelection();
     auto it = (*playlist)->getBeginIterator();
     /*
     for (int index = 0; index <= audioTrackPos; index++)
@@ -592,7 +594,8 @@ void MusicLibraryFrame::audioTrackListItemOnClick(wxCommandEvent &event) {
         it++;
     }
     //audioTrack = it;
-    (*playlist)->playAudioTrack(*it);
+    //(*playlist)->playAudioTrack(*it);
+    concreteController->playTrackPlaylist((*playlist), (*it));
 }
 
 
