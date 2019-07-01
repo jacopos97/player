@@ -33,7 +33,7 @@
 #include "MusicLibrary.h"
 
 #include "ConcreteController.h"
-#include "PlaylistGUI.h"
+
 ///////////////////////////////////////////////////////////////////////////
 
 
@@ -47,6 +47,11 @@ private:
     std::list<Playlist*>::iterator playlist;
     //wxArrayString audiotracksTitles;
     wxArrayString playlistsNames;
+
+    //wxMediaState mediaState;
+
+
+    //std::list<AudioTrack*>::iterator audioTrack;
 
     /*
     std::list <AudioTrack> audioTracks;
@@ -73,6 +78,9 @@ protected:
     wxMenu* menuPlaylist;
     wxMenu* menuMusicLibrary;
 
+    wxButton* buttonPlay;
+    wxButton* buttonPause;
+
 
 
 
@@ -81,6 +89,8 @@ protected:
     // Virtual event handlers, overide them in your derived class
 	virtual void buttonLoopOnButtonClick( wxCommandEvent& event );
 	virtual void buttonShuffleOnButtonClick( wxCommandEvent& event );
+	virtual void buttonPlayOnButtonClick( wxCommandEvent& event);
+    virtual void buttonPauseOnButtonClick( wxCommandEvent& event);
 	virtual void menuItemPlaylistNewOnMenuSelection( wxCommandEvent& event );
 	virtual void menuItemPlaylistDeleteOnMenuSelection( wxCommandEvent& event );
 	virtual void menuItemAudioTrackAddOnMenuSelection( wxCommandEvent& event );

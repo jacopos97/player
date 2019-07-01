@@ -7,11 +7,11 @@
 void ConcreteController::playAudioTrack() {
     audioTrack->playAudioTrack();
 }
-
+/*
 void ConcreteController::restartAudioTrack() {
     audioTrack->restart();
 }
-
+*/
 void ConcreteController::pauseAudioTrack() {
     audioTrack->pause();
 }
@@ -52,7 +52,7 @@ void ConcreteController::newPlaylist(wxString playlistName) {
     musicLibrary->newPlaylist(playlistName);
 }
 
-void ConcreteController::newAudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl) {
+void ConcreteController::newAudioTrack(const wxString &fileName, const wxString &filePath, wxMediaCtrl** mediaCtrl) {
     musicLibrary->newAudioTrack(fileName, filePath, mediaCtrl);
 }
 

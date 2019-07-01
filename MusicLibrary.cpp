@@ -135,9 +135,9 @@ std::list<Playlist*>::iterator MusicLibrary::getEndPlaylistsIterator() {
     return playlists.end();
 }
 
-void MusicLibrary::newAudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl) {
+void MusicLibrary::newAudioTrack(const wxString &fileName, const wxString &filePath, wxMediaCtrl** mediaCtrl) {
     //AudioTrack au(fileName, parent);
-    auto au = new AudioTrack(fileName, fileName, mediaCtrl);
+    auto au = new AudioTrack(fileName, filePath, mediaCtrl);
     audioTracks.push_back(au);
     (*(playlists.begin()))->addTrack(au);
 }

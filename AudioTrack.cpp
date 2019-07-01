@@ -7,21 +7,19 @@
 
 
 void AudioTrack::playAudioTrack() {
+    bool path = (*fileMedia)->Load(static_cast<wxURI>(filePath));
+    if (!path) {
+        wxMessageDialog errorMessage(NULL, "File not found!!!", "Error!");
+        errorMessage.ShowModal();
+    }
+}
 
 /*
-
-    fileMedia->Load(filePath);
-
-    fileMedia->Play();
-*/
-}
-
-
 void AudioTrack::restart() {
-    //TODO
+
     //this->playAudioTrack();
 }
-
+*/
 
 bool AudioTrack::operator==(const AudioTrack& a) const {
     return (fileName == a.fileName);
@@ -86,7 +84,7 @@ void AudioTrack::notifyObserver() {
     }
 }
 
-const wxURI &AudioTrack::getFilePath() const {
+const wxString &AudioTrack::getFilePath() const {
     return filePath;
 }
 

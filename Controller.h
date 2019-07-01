@@ -13,7 +13,7 @@ class Controller {
 public:
     //Controller() = default;
     virtual void playAudioTrack() = 0;
-    virtual void restartAudioTrack() = 0;
+    //virtual void restartAudioTrack() = 0;
     virtual void pauseAudioTrack() =  0;
     virtual void addTrackPlaylist(AudioTrack* audioTrack, Playlist* playlist) = 0;
     virtual void removeTrackPlaylist(int pos, Playlist* playlist) = 0;
@@ -24,7 +24,7 @@ public:
     virtual void setLoopPlaylist(bool loop) = 0;
     virtual void setShufflePlaylist(bool shuffle) = 0;
     virtual void newPlaylist(wxString playlistName) = 0;
-    virtual void newAudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl) = 0;
+    virtual void newAudioTrack(const wxString &fileName, const wxString &filePath, wxMediaCtrl** mediaCtrl) = 0;
     virtual void removePlaylist (int pos) = 0;
     virtual void removeTrackMusicLibrary (int pos) = 0;
     /*

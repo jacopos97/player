@@ -15,7 +15,7 @@ class ConcreteController : public Controller {
 public:
     explicit ConcreteController(MusicLibrary* msl) : audioTrack(nullptr), playlist(nullptr), musicLibrary(msl) {}
     void playAudioTrack() override;
-    void restartAudioTrack() override;
+    //void restartAudioTrack() override;
     void pauseAudioTrack() override;
     void addTrackPlaylist(AudioTrack* audioTrack, Playlist* playlist) override;
     void removeTrackPlaylist(int pos, Playlist* playlist) override;
@@ -26,7 +26,7 @@ public:
     void setLoopPlaylist(bool loop) override;
     void setShufflePlaylist(bool shuffle) override;
     void newPlaylist(wxString playlistName) override;
-    void newAudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl) override;
+    void newAudioTrack(const wxString &fileName, const wxString &filePath, wxMediaCtrl** mediaCtrl) override;
     void removePlaylist (int pos) override;
     void removeTrackMusicLibrary (int pos) override;
     /*

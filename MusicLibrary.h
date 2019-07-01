@@ -22,7 +22,7 @@ public:
         newPlaylist("Musiclibrary");
     }
     void newPlaylist (wxString playlistName);
-    void newAudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl);
+    void newAudioTrack(const wxString &fileName, const wxString &filePath, wxMediaCtrl** mediaCtrl);
     void removePlaylist (int pos);
     void removeAudioTrack (int pos);
     //void playPlaylist(Playlist playlist);

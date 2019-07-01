@@ -16,6 +16,7 @@
 #include <wx/string.h>
 #include <wx/gdicmn.h>
 #include <wx/validate.h>
+#include <wx/msgdlg.h>
 #include "Subject.h"
 
 
@@ -48,7 +49,7 @@ public:
     }
     */
 
-    AudioTrack(const wxString &fileName, const wxURI &filePath, wxMediaCtrl** mediaCtrl) {
+    AudioTrack(const wxString &fileName, const wxString &filePath, wxMediaCtrl** mediaCtrl) {
 
         AudioTrack::fileName = fileName;
         AudioTrack::filePath = filePath;
@@ -80,7 +81,7 @@ public:
     bool operator==(const AudioTrack& a) const ;
     bool operator!=(const AudioTrack& a) const;
     void playAudioTrack();
-    void restart();
+    //void restart();
     void pause();
 
     ~AudioTrack() override = default;
@@ -98,7 +99,7 @@ public:
     void notifyObserver () override;
 
     const wxString &getFileName() const;
-    const wxURI &getFilePath() const;
+    const wxString &getFilePath() const;
 
 
 
@@ -118,8 +119,9 @@ private:
     std::string title;
 */
     wxString fileName;
-    wxURI filePath;
+    wxString filePath;
     wxMediaCtrl** fileMedia;
+
 
     //wxWindow* parent;
 
