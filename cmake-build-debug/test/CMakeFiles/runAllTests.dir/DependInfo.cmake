@@ -4,12 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jacopo/CLionProjects/MP3/test/AudioTrackTest.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/CMakeFiles/runAllTests.dir/AudioTrackTest.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/test/MusicLibraryFixture.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/CMakeFiles/runAllTests.dir/MusicLibraryFixture.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/test/MusicLibraryTest.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/CMakeFiles/runAllTests.dir/MusicLibraryTest.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/test/PlaylistFixture.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/CMakeFiles/runAllTests.dir/PlaylistFixture.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/test/PlaylistTest.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/CMakeFiles/runAllTests.dir/PlaylistTest.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/test/runAllTests.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/CMakeFiles/runAllTests.dir/runAllTests.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/test/MusicLibraryFixture.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/CMakeFiles/runAllTests.dir/MusicLibraryFixture.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/test/MusicLibraryTest.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/CMakeFiles/runAllTests.dir/MusicLibraryTest.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/test/PlaylistTest.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/CMakeFiles/runAllTests.dir/PlaylistTest.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/test/runAllTests.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/CMakeFiles/runAllTests.dir/runAllTests.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -30,9 +28,9 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/lib/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
-  "/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/lib/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
-  "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/DependInfo.cmake"
+  "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/lib/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/lib/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
+  "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/core.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

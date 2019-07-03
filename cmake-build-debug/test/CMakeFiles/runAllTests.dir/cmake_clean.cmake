@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/runAllTests.dir/runAllTests.cpp.o"
-  "CMakeFiles/runAllTests.dir/AudioTrackTest.cpp.o"
   "CMakeFiles/runAllTests.dir/PlaylistTest.cpp.o"
-  "CMakeFiles/runAllTests.dir/PlaylistFixture.cpp.o"
   "CMakeFiles/runAllTests.dir/MusicLibraryTest.cpp.o"
   "CMakeFiles/runAllTests.dir/MusicLibraryFixture.cpp.o"
   "runAllTests.pdb"

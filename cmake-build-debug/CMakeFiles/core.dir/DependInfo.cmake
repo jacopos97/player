@@ -4,13 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jacopo/CLionProjects/MP3/AudioTrack.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/AudioTrack.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/AudioTrackObserver.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/AudioTrackObserver.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/ConcreteController.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/ConcreteController.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/MusicLibrary.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/MusicLibrary.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/MusicLibraryFrame.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/MusicLibraryFrame.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/Playlist.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/Playlist.cpp.o"
-  "/home/jacopo/CLionProjects/MP3/PlaylistGUI.cpp" "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/core.dir/PlaylistGUI.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/AudioTrack.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/core.dir/AudioTrack.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/ConcreteController.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/core.dir/ConcreteController.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/MusicLibrary.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/core.dir/MusicLibrary.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/MusicLibraryFrame.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/core.dir/MusicLibraryFrame.cpp.o"
+  "/home/jacopo/CLionProjects/player-2.1/Playlist.cpp" "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/core.dir/Playlist.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

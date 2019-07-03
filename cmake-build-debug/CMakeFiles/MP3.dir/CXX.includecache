@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 iostream
 -
 list
@@ -27,26 +27,28 @@ wx/gdicmn.h
 -
 wx/validate.h
 -
+wx/msgdlg.h
+-
 Subject.h
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 
-/home/jacopo/CLionProjects/MP3/ConcreteController.h
+/home/jacopo/CLionProjects/player-2.1/ConcreteController.h
 Controller.h
-/home/jacopo/CLionProjects/MP3/Controller.h
+/home/jacopo/CLionProjects/player-2.1/Controller.h
 MusicLibrary.h
-/home/jacopo/CLionProjects/MP3/MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
 Playlist.h
-/home/jacopo/CLionProjects/MP3/Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
 AudioTrack.h
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 
-/home/jacopo/CLionProjects/MP3/Controller.h
+/home/jacopo/CLionProjects/player-2.1/Controller.h
 Playlist.h
-/home/jacopo/CLionProjects/MP3/Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
 AudioTrack.h
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 
-/home/jacopo/CLionProjects/MP3/MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
 list
 -
 string
@@ -60,13 +62,13 @@ wx/wx.h
 wx/mediactrl.h
 -
 Subject.h
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 AudioTrack.h
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 Playlist.h
-/home/jacopo/CLionProjects/MP3/Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
 
-/home/jacopo/CLionProjects/MP3/MusicLibraryFrame.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibraryFrame.h
 wx/artprov.h
 -
 wx/xrc/xmlres.h
@@ -110,17 +112,15 @@ wx/choicdlg.h
 list
 -
 Observer.h
-/home/jacopo/CLionProjects/MP3/Observer.h
+/home/jacopo/CLionProjects/player-2.1/Observer.h
 MusicLibrary.h
-/home/jacopo/CLionProjects/MP3/MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
 ConcreteController.h
-/home/jacopo/CLionProjects/MP3/ConcreteController.h
-PlaylistGUI.h
-/home/jacopo/CLionProjects/MP3/PlaylistGUI.h
+/home/jacopo/CLionProjects/player-2.1/ConcreteController.h
 
-/home/jacopo/CLionProjects/MP3/Observer.h
+/home/jacopo/CLionProjects/player-2.1/Observer.h
 
-/home/jacopo/CLionProjects/MP3/Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
 list
 -
 string
@@ -136,63 +136,23 @@ time.h
 wx/arrstr.h
 -
 Subject.h
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 AudioTrack.h
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 
-/home/jacopo/CLionProjects/MP3/PlaylistGUI.h
-wx/artprov.h
--
-wx/xrc/xmlres.h
--
-wx/string.h
--
-wx/listbox.h
--
-wx/gdicmn.h
--
-wx/font.h
--
-wx/colour.h
--
-wx/settings.h
--
-wx/mediactrl.h
--
-wx/bitmap.h
--
-wx/image.h
--
-wx/icon.h
--
-wx/button.h
--
-wx/sizer.h
--
-wx/menu.h
--
-wx/frame.h
--
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 Observer.h
-/home/jacopo/CLionProjects/MP3/Observer.h
-Playlist.h
-/home/jacopo/CLionProjects/MP3/Playlist.h
-ConcreteController.h
-/home/jacopo/CLionProjects/MP3/ConcreteController.h
+/home/jacopo/CLionProjects/player-2.1/Observer.h
 
-/home/jacopo/CLionProjects/MP3/Subject.h
-Observer.h
-/home/jacopo/CLionProjects/MP3/Observer.h
-
-/home/jacopo/CLionProjects/MP3/main.cpp
+/home/jacopo/CLionProjects/player-2.1/main.cpp
 wx/wx.h
 -
 MusicLibraryFrame.h
-/home/jacopo/CLionProjects/MP3/MusicLibraryFrame.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibraryFrame.h
 ConcreteController.h
-/home/jacopo/CLionProjects/MP3/ConcreteController.h
+/home/jacopo/CLionProjects/player-2.1/ConcreteController.h
 MusicLibrary.h
-/home/jacopo/CLionProjects/MP3/MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
 
 /usr/include/wx-3.0/wx/accel.h
 wx/defs.h

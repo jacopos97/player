@@ -1,2 +1,2 @@
-/usr/bin/ar qc libcore.a  CMakeFiles/core.dir/AudioTrack.cpp.o CMakeFiles/core.dir/Playlist.cpp.o CMakeFiles/core.dir/MusicLibrary.cpp.o CMakeFiles/core.dir/AudioTrackObserver.cpp.o CMakeFiles/core.dir/MusicLibraryFrame.cpp.o CMakeFiles/core.dir/ConcreteController.cpp.o CMakeFiles/core.dir/PlaylistGUI.cpp.o
+/usr/bin/ar qc libcore.a  CMakeFiles/core.dir/AudioTrack.cpp.o CMakeFiles/core.dir/Playlist.cpp.o CMakeFiles/core.dir/MusicLibrary.cpp.o CMakeFiles/core.dir/MusicLibraryFrame.cpp.o CMakeFiles/core.dir/ConcreteController.cpp.o
 /usr/bin/ranlib libcore.a

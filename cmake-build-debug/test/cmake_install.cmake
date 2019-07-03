@@ -1,4 +1,4 @@
-# Install script for directory: /home/jacopo/CLionProjects/MP3/test
+# Install script for directory: /home/jacopo/CLionProjects/player-2.1/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/jacopo/CLionProjects/MP3/cmake-build-debug/test/lib/googletest/cmake_install.cmake")
+  include("/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/test/lib/googletest/cmake_install.cmake")
 
 endif()
 

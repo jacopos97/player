@@ -300,7 +300,7 @@ cxxabi.h
 acxx_demangle.h
 -
 
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 iostream
 -
 list
@@ -321,10 +321,12 @@ wx/gdicmn.h
 -
 wx/validate.h
 -
+wx/msgdlg.h
+-
 Subject.h
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 
-/home/jacopo/CLionProjects/MP3/MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
 list
 -
 string
@@ -338,15 +340,15 @@ wx/wx.h
 wx/mediactrl.h
 -
 Subject.h
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 AudioTrack.h
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 Playlist.h
-/home/jacopo/CLionProjects/MP3/Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
 
-/home/jacopo/CLionProjects/MP3/Observer.h
+/home/jacopo/CLionProjects/player-2.1/Observer.h
 
-/home/jacopo/CLionProjects/MP3/Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
 list
 -
 string
@@ -362,19 +364,35 @@ time.h
 wx/arrstr.h
 -
 Subject.h
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 AudioTrack.h
-/home/jacopo/CLionProjects/MP3/AudioTrack.h
+/home/jacopo/CLionProjects/player-2.1/AudioTrack.h
 
-/home/jacopo/CLionProjects/MP3/Subject.h
+/home/jacopo/CLionProjects/player-2.1/Subject.h
 Observer.h
-/home/jacopo/CLionProjects/MP3/Observer.h
+/home/jacopo/CLionProjects/player-2.1/Observer.h
 
-/home/jacopo/CLionProjects/MP3/test/MusicLibraryFixture.cpp
+/home/jacopo/CLionProjects/player-2.1/test/MusicLibraryFixture.cpp
 gtest/gtest.h
-/home/jacopo/CLionProjects/MP3/test/gtest/gtest.h
+/home/jacopo/CLionProjects/player-2.1/test/gtest/gtest.h
 ../MusicLibrary.h
-/home/jacopo/CLionProjects/MP3/MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
+
+/home/jacopo/CLionProjects/player-2.1/test/MusicLibraryTest.cpp
+gtest/gtest.h
+/home/jacopo/CLionProjects/player-2.1/test/gtest/gtest.h
+../MusicLibrary.h
+/home/jacopo/CLionProjects/player-2.1/MusicLibrary.h
+
+/home/jacopo/CLionProjects/player-2.1/test/PlaylistTest.cpp
+gtest/gtest.h
+/home/jacopo/CLionProjects/player-2.1/test/gtest/gtest.h
+../Playlist.h
+/home/jacopo/CLionProjects/player-2.1/Playlist.h
+
+/home/jacopo/CLionProjects/player-2.1/test/runAllTests.cpp
+gtest/gtest.h
+/home/jacopo/CLionProjects/player-2.1/test/gtest/gtest.h
 
 /usr/include/wx-3.0/wx/accel.h
 wx/defs.h

@@ -1,1 +1,1 @@
-/usr/bin/c++   -pthread -g   CMakeFiles/MP3.dir/main.cpp.o  -o MP3 libcore.a -L/usr/lib/x86_64-linux-gnu -pthread -lwx_baseu_net-3.0 -lwx_gtk2u_core-3.0 -lwx_baseu-3.0 -lwx_gtk2u_media-3.0 
+/usr/bin/g++   -pthread -g   CMakeFiles/MP3.dir/main.cpp.o  -o MP3 libcore.a -L/usr/lib/x86_64-linux-gnu -pthread -lwx_baseu_net-3.0 -lwx_gtk2u_core-3.0 -lwx_baseu-3.0 -lwx_gtk2u_media-3.0 

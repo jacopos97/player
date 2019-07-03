@@ -12,6 +12,10 @@ void AudioTrack::playAudioTrack() {
         wxMessageDialog errorMessage(NULL, "File not found!!!", "Error!");
         errorMessage.ShowModal();
     }
+    else {
+        (*fileMedia)->Play();
+        while((*fileMedia)->GetState() != wxMEDIASTATE_STOPPED);
+    }
 }
 
 /*
@@ -88,4 +92,6 @@ void AudioTrack::notifyObserver() {
 const wxString &AudioTrack::getFilePath() const {
     return filePath;
 }
+
+
 

@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fbefc/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fbefc.dir/build.make CMakeFiles/cmTC_fbefc.dir/build
-make[1]: ingresso nella directory "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp"
-Building C object CMakeFiles/cmTC_fbefc.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_fbefc.dir/CheckSymbolExists.c.o   -c /home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_fbefc
-/usr/local/clion-2018.2.4/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fbefc.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_fbefc.dir/CheckSymbolExists.c.o  -o cmTC_fbefc 
-CMakeFiles/cmTC_fbefc.dir/CheckSymbolExists.c.o: nella funzione "main":
+Run Build Command(s):/usr/bin/make cmTC_408db/fast 
+/usr/bin/make -f CMakeFiles/cmTC_408db.dir/build.make CMakeFiles/cmTC_408db.dir/build
+make[1]: ingresso nella directory "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp"
+Building C object CMakeFiles/cmTC_408db.dir/CheckSymbolExists.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTC_408db.dir/CheckSymbolExists.c.o   -c /home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_408db
+/home/jacopo/Scaricati/clion-2019.1.4/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_408db.dir/link.txt --verbose=1
+/usr/bin/gcc      -rdynamic CMakeFiles/cmTC_408db.dir/CheckSymbolExists.c.o  -o cmTC_408db 
+CMakeFiles/cmTC_408db.dir/CheckSymbolExists.c.o: nella funzione "main":
 CheckSymbolExists.c:(.text+0x1b): riferimento non definito a "pthread_create"
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_fbefc.dir/build.make:86: recipe for target 'cmTC_fbefc' failed
-make[1]: *** [cmTC_fbefc] Error 1
-make[1]: uscita dalla directory "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp"
-Makefile:121: recipe for target 'cmTC_fbefc/fast' failed
-make: *** [cmTC_fbefc/fast] Error 2
+CMakeFiles/cmTC_408db.dir/build.make:86: recipe for target 'cmTC_408db' failed
+make[1]: *** [cmTC_408db] Error 1
+make[1]: uscita dalla directory "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp"
+Makefile:121: recipe for target 'cmTC_408db/fast' failed
+make: *** [cmTC_408db/fast] Error 2
 
-File /home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_6d3ad/fast"
-/usr/bin/make -f CMakeFiles/cmTC_6d3ad.dir/build.make CMakeFiles/cmTC_6d3ad.dir/build
-make[1]: ingresso nella directory "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp"
-Building C object CMakeFiles/cmTC_6d3ad.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_6d3ad.dir/CheckFunctionExists.c.o   -c /usr/local/clion-2018.2.4/bin/cmake/linux/share/cmake-3.12/Modules/CheckFunctionExists.c
-Linking C executable cmTC_6d3ad
-/usr/local/clion-2018.2.4/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d3ad.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_6d3ad.dir/CheckFunctionExists.c.o  -o cmTC_6d3ad -lpthreads 
+Run Build Command(s):/usr/bin/make cmTC_23e62/fast 
+/usr/bin/make -f CMakeFiles/cmTC_23e62.dir/build.make CMakeFiles/cmTC_23e62.dir/build
+make[1]: ingresso nella directory "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp"
+Building C object CMakeFiles/cmTC_23e62.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_23e62.dir/CheckFunctionExists.c.o   -c /home/jacopo/Scaricati/clion-2019.1.4/bin/cmake/linux/share/cmake-3.14/Modules/CheckFunctionExists.c
+Linking C executable cmTC_23e62
+/home/jacopo/Scaricati/clion-2019.1.4/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_23e62.dir/link.txt --verbose=1
+/usr/bin/gcc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_23e62.dir/CheckFunctionExists.c.o  -o cmTC_23e62 -lpthreads 
 /usr/bin/ld: impossibile trovare -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_6d3ad.dir/build.make:86: recipe for target 'cmTC_6d3ad' failed
-make[1]: *** [cmTC_6d3ad] Error 1
-make[1]: uscita dalla directory "/home/jacopo/CLionProjects/MP3/cmake-build-debug/CMakeFiles/CMakeTmp"
-Makefile:121: recipe for target 'cmTC_6d3ad/fast' failed
-make: *** [cmTC_6d3ad/fast] Error 2
+CMakeFiles/cmTC_23e62.dir/build.make:86: recipe for target 'cmTC_23e62' failed
+make[1]: *** [cmTC_23e62] Error 1
+make[1]: uscita dalla directory "/home/jacopo/CLionProjects/player-2.1/cmake-build-debug/CMakeFiles/CMakeTmp"
+Makefile:121: recipe for target 'cmTC_23e62/fast' failed
+make: *** [cmTC_23e62/fast] Error 2
 
 

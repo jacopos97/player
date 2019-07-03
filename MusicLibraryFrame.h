@@ -106,7 +106,7 @@ protected:
 
 
 
-	void OnMediaLoaded(wxCommandEvent& event);
+	//void OnMediaLoaded(wxCommandEvent& event);
 	void newPlaylist();
 	void newAudioTrack();
 

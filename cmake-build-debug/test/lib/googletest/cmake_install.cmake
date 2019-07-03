@@ -1,4 +1,4 @@
-# Install script for directory: /home/jacopo/CLionProjects/MP3/test/lib/googletest
+# Install script for directory: /home/jacopo/CLionProjects/player-2.1/test/lib/googletest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

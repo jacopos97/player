@@ -156,7 +156,7 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 	playlistList->Bind(wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler(MusicLibraryFrame::playlistListItemOnClick), this, playlistList->GetId());
 	audioTrackList->Bind(wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler(MusicLibraryFrame::audioTrackListItemOnClick), this, audioTrackList->GetId());
 
-	mediaCtrlAudioTrack->Bind(wxEVT_MEDIA_LOADED, wxCommandEventHandler(MusicLibraryFrame::OnMediaLoaded), this, mediaCtrlAudioTrack->GetId());
+	//mediaCtrlAudioTrack->Bind(wxEVT_MEDIA_LOADED, wxCommandEventHandler(MusicLibraryFrame::OnMediaLoaded), this, mediaCtrlAudioTrack->GetId());
 
 }
 
@@ -599,12 +599,12 @@ void MusicLibraryFrame::audioTrackListItemOnClick(wxCommandEvent &event) {
 }
 
 
-
+/*
 void MusicLibraryFrame::OnMediaLoaded(wxCommandEvent &event) {
     mediaCtrlAudioTrack->Play();
     //mediaState = mediaCtrlAudioTrack->GetState();
 }
-
+*/
 void MusicLibraryFrame::newPlaylist() {
     //wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist", wxOK | wxCENTRE | wxWS_EX_VALIDATE_RECURSIVELY);
     wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist");
