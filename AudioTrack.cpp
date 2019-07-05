@@ -5,7 +5,7 @@
 #include "AudioTrack.h"
 
 
-
+/*
 void AudioTrack::playAudioTrack() {
     bool path = (*fileMedia)->Load(static_cast<wxURI>(filePath));
     if (!path) {
@@ -14,10 +14,16 @@ void AudioTrack::playAudioTrack() {
     }
     else {
         (*fileMedia)->Play();
-        while((*fileMedia)->GetState() != wxMEDIASTATE_STOPPED);
+
+        auto mediaLength = (*fileMedia)->Length();
+        while((*fileMedia)->GetState() == wxMEDIASTATE_PLAYING)
+            if((*fileMedia)->Tell() == mediaLength)
+                (*fileMedia)->Stop();
+
+        //while((*fileMedia)->Tell() == mediaLength)
     }
 }
-
+*/
 /*
 void AudioTrack::restart() {
 
@@ -92,6 +98,13 @@ void AudioTrack::notifyObserver() {
 const wxString &AudioTrack::getFilePath() const {
     return filePath;
 }
-
+/*
+void AudioTrack::OnMediaLoaded(wxCommandEvent &event) {
+    if((*fileMedia)->Play()) {
+        wxMessageDialog errorMessage(NULL, "Couldn't play file!!!", "Error!");
+        errorMessage.ShowModal();
+    }
+}
+*/
 
 

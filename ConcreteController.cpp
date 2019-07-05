@@ -3,10 +3,11 @@
 //
 
 #include "ConcreteController.h"
-
+/*
 void ConcreteController::playAudioTrack() {
     audioTrack->playAudioTrack();
 }
+ */
 /*
 void ConcreteController::restartAudioTrack() {
     audioTrack->restart();
@@ -32,6 +33,7 @@ void ConcreteController::moveTrackPlaylist(std::list<AudioTrack>::iterator selec
     playlist->moveTrack(selectedAudioTrack, desiredPositionIterator);
 }
 */
+/*
 void ConcreteController::playTrackPlaylist(Playlist* playlist, AudioTrack* audioTrack) {
     ConcreteController::playlist = playlist;
     ConcreteController::playlist->playAudioTrack(audioTrack);
@@ -40,9 +42,9 @@ void ConcreteController::playTrackPlaylist(Playlist* playlist, AudioTrack* audio
 void ConcreteController::playPlaylist() {
     playlist->play();
 }
+*/
 
-
-
+/*
 void ConcreteController::setLoopPlaylist(bool loop) {
     playlist->setLoop(loop);
 }
@@ -50,7 +52,7 @@ void ConcreteController::setLoopPlaylist(bool loop) {
 void ConcreteController::setShufflePlaylist(bool shuffle) {
     playlist->setShuffle(shuffle);
 }
-
+*/
 void ConcreteController::newPlaylist(wxString playlistName) {
     musicLibrary->newPlaylist(playlistName);
 }
@@ -79,6 +81,7 @@ void ConcreteController::playAudioTrack(AudioTrack audioTrack) {
     musicLibrary->playAudioTrack(audioTrack);
 }
 */
+
 void ConcreteController::setLoopMusicLibrary(bool loop) {
     musicLibrary->setLoop(loop);
 }
@@ -86,6 +89,7 @@ void ConcreteController::setLoopMusicLibrary(bool loop) {
 void ConcreteController::setShuffleMusicLibrary(bool shuffle) {
     musicLibrary->setShuffle(shuffle);
 }
+
 
 void ConcreteController::changePlaylistName(wxString n, Playlist* playlist) {
     ConcreteController::playlist = playlist;

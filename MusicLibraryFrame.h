@@ -51,7 +51,7 @@ private:
     //wxMediaState mediaState;
 
 
-    //std::list<AudioTrack*>::iterator audioTrack;
+    std::list<AudioTrack*>::iterator audioTrack;
 
     /*
     std::list <AudioTrack> audioTracks;
@@ -106,9 +106,12 @@ protected:
 
 
 
-	//void OnMediaLoaded(wxCommandEvent& event);
+	void OnMediaLoaded(wxCommandEvent& event);
+	void OnMediaFinished(wxCommandEvent& event);
+	//void OnPlay(wxCommandEvent& event);
 	void newPlaylist();
 	void newAudioTrack();
+	void playAudioTrack(std::list<AudioTrack*>::iterator au);
 
 
 

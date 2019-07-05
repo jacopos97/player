@@ -62,6 +62,7 @@ public:
         if (!mediaValidation)
             std::cout << "File not found!\n";
             */
+        //(*fileMedia)->Bind(wxEVT_MEDIA_LOADED, &AudioTrack::OnMediaLoaded, this, (*fileMedia)->GetId());
     }
 
     AudioTrack(const AudioTrack &au) {
@@ -75,12 +76,13 @@ public:
         if (!mediaValidation)
             std::cout << "File not found!\n";
         */
+        //(*fileMedia)->Bind(wxEVT_MEDIA_LOADED, &AudioTrack::OnMediaLoaded, this, (*fileMedia)->GetId());
     }
 
-
+    //void OnMediaLoaded(wxCommandEvent& event);
     bool operator==(const AudioTrack& a) const ;
     bool operator!=(const AudioTrack& a) const;
-    void playAudioTrack();
+    //void playAudioTrack();
     //void restart();
     //void pause();
 

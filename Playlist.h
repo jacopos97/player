@@ -24,8 +24,8 @@ public:
     void addTrack(AudioTrack* audioTrack);
     void removeTrack(int pos);
     //void moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPositionIterator);
-    void playAudioTrack(AudioTrack* audioTrack);
-    void play();
+    //void playAudioTrack(AudioTrack* audioTrack);
+    //void play();
     void changeName(wxString n);
     bool isLoop() const;
     void setLoop(bool loop);
@@ -35,7 +35,7 @@ public:
     std::list<AudioTrack*>::iterator  getBeginIterator();
     std::list<AudioTrack*>::iterator getEndIterator();
     ~Playlist() override = default;
-    AudioTrack* getAudioTrack(unsigned long pos);
+    std::list<AudioTrack*>::iterator getAudioTrack(int pos);
     unsigned long getSize() const;
     void registerObserver (Observer *o) override;
     void removeObserver (Observer *o) override;

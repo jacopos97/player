@@ -137,7 +137,7 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 	update();
 
 
-	mediaCtrlAudioTrack->Load(static_cast<wxURI>("file:///home/jacopo/Musica/Julie_Li_-_01_-_resound.mp3"));
+	//mediaCtrlAudioTrack->Load(static_cast<wxURI>("file:///home/jacopo/Musica/Julie_Li_-_01_-_resound.mp3"));
 	//mediaCtrlAudioTrack->Load("Scott_Holmes_-_Our_Big_Adventure.mp3");
 
 
@@ -156,8 +156,8 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 	playlistList->Bind(wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler(MusicLibraryFrame::playlistListItemOnClick), this, playlistList->GetId());
 	audioTrackList->Bind(wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler(MusicLibraryFrame::audioTrackListItemOnClick), this, audioTrackList->GetId());
 
-	//mediaCtrlAudioTrack->Bind(wxEVT_MEDIA_LOADED, wxCommandEventHandler(MusicLibraryFrame::OnMediaLoaded), this, mediaCtrlAudioTrack->GetId());
-
+	mediaCtrlAudioTrack->Bind(wxEVT_MEDIA_LOADED, wxCommandEventHandler(MusicLibraryFrame::OnMediaLoaded), this, mediaCtrlAudioTrack->GetId());
+	mediaCtrlAudioTrack->Bind(wxEVT_MEDIA_FINISHED, wxCommandEventHandler(MusicLibraryFrame::OnMediaFinished), this, mediaCtrlAudioTrack->GetId());
 }
 
 MusicLibraryFrame::~MusicLibraryFrame()
@@ -221,12 +221,14 @@ void MusicLibraryFrame::update() {
 
 
 void MusicLibraryFrame::buttonLoopOnButtonClick(wxCommandEvent &event) {
+
     bool loop = !(musicLibrary->isLoop());
     concreteController->setLoopMusicLibrary(loop);
     if (loop)
         buttonLoop->SetBackgroundColour(*wxLIGHT_GREY);
     else
         buttonLoop->SetBackgroundColour(*wxWHITE);
+
 }
 
 
@@ -237,8 +239,8 @@ void MusicLibraryFrame::buttonShuffleOnButtonClick(wxCommandEvent &event) {
         buttonShuffle->SetBackgroundColour(*wxLIGHT_GREY);
     else
         buttonShuffle->SetBackgroundColour(*wxWHITE);
-    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
-        (*playlist)->play();
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED);
+        //(*playlist)->play();
 }
 
 
@@ -373,9 +375,12 @@ void MusicLibraryFrame::playlistListItemOnClick(wxCommandEvent &event) {
     if (playlist != it) {
         playlist = it;
         updatePlaylist(playlist);
+        if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator()) {
+            audioTrack = (*playlist)->getBeginIterator();
+            playAudioTrack(audioTrack);
+        }
     }
-    if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator())
-        (*playlist)->play();
+
 /*
 
     wxBoxSizer* bSizerMainFrame;
@@ -583,28 +588,34 @@ void MusicLibraryFrame::menuItemPlaylistChangeNameOnMenuSelection(wxCommandEvent
 
 void MusicLibraryFrame::audioTrackListItemOnClick(wxCommandEvent &event) {
     int audioTrackPos = audioTrackList->GetSelection();
-    auto it = (*playlist)->getBeginIterator();
+    audioTrack = (*playlist)->getAudioTrack(audioTrackPos);
+    playAudioTrack(audioTrack);
+    //auto it = (*playlist)->getBeginIterator();
     /*
     for (int index = 0; index <= audioTrackPos; index++)
         it++;
         */
+    /*
     int index = 0;
     while (index != audioTrackPos) {
         index++;
         it++;
     }
+     */
     //audioTrack = it;
     //(*playlist)->playAudioTrack(*it);
-    concreteController->playTrackPlaylist((*playlist), (*it));
+    //concreteController->playTrackPlaylist((*playlist), (*it));
 }
 
 
-/*
+
 void MusicLibraryFrame::OnMediaLoaded(wxCommandEvent &event) {
-    mediaCtrlAudioTrack->Play();
-    //mediaState = mediaCtrlAudioTrack->GetState();
+    if(!mediaCtrlAudioTrack->Play()) {
+        wxMessageDialog errorMessage(NULL, "File not found!!!", "Error!");
+        errorMessage.ShowModal();
+    }
 }
-*/
+
 void MusicLibraryFrame::newPlaylist() {
     //wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist", wxOK | wxCENTRE | wxWS_EX_VALIDATE_RECURSIVELY);
     wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist");
@@ -619,7 +630,12 @@ void MusicLibraryFrame::newPlaylist() {
             auto it = musicLibrary->getEndPlaylistsIterator();
             it--;
             playlistsNames.Add((*it)->getName());
+            playlist = it;
             update();
+            int i = static_cast<int>(playlistList->GetCount());
+            i--;
+            playlistList->SetSelection(i);
+            updatePlaylist(playlist);
         }
     }
 }
@@ -668,12 +684,14 @@ void MusicLibraryFrame::buttonPlayOnButtonClick(wxCommandEvent &event) {
             (*playlist)->play();
     }
      */
+
+    /*
     if (mediaCtrlAudioTrack->GetState() == wxMEDIASTATE_STOPPED)
         if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator())
             (*playlist)->play();
     if (mediaCtrlAudioTrack->GetState() == wxMEDIASTATE_PAUSED)
         mediaCtrlAudioTrack->Play();
-
+*/
 }
 
 void MusicLibraryFrame::buttonPauseOnButtonClick(wxCommandEvent &event) {
@@ -681,6 +699,85 @@ void MusicLibraryFrame::buttonPauseOnButtonClick(wxCommandEvent &event) {
         mediaCtrlAudioTrack->Pause();
 }
 
+void MusicLibraryFrame::playAudioTrack(std::list<AudioTrack*>::iterator au) {
+    if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator()) {
+        if (au == (*playlist)->getEndIterator()) {
+            wxMessageDialog errorMessage(NULL, "No file selected!!!", "Error!");
+            errorMessage.ShowModal();
+        } else {
+            if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+                mediaCtrlAudioTrack->Stop();
+            bool load = mediaCtrlAudioTrack->Load(static_cast<wxURI>((*au)->getFilePath()));
+            if (!load) {
+                wxMessageDialog errorMessage(NULL, "File not found!!!", "Error!");
+                errorMessage.ShowModal();
+            }
+        }
+    }
+}
+
+void MusicLibraryFrame::OnMediaFinished(wxCommandEvent &event) {
+    //auto au = (*playlist)->getAudioTrack(audioTrackList->GetSelection());
+    //au++;
+    /*
+    audioTrack++;
+    if(audioTrack == (*playlist)->getEndIterator()) {
+        playlist++;
+        if (playlist == musicLibrary->getEndPlaylistsIterator()) {
+            playlist = musicLibrary->getBeginPlaylistsIterator();
+            playlistList->SetSelection(0);
+            updatePlaylist(playlist);
+        }
+        else if((*playlist)->getBeginIterator() == (*playlist)->getEndIterator()){
+            int i = playlistList->GetSelection();
+            i++;
+            playlistList->SetSelection(i);
+            updatePlaylist(playlist);
+            wxMessageDialog errorMessage(NULL, "Empty playlist!!!", "Error!");
+            errorMessage.ShowModal();
+        }
+        else{
+            int i = playlistList->GetSelection();
+            i++;
+            playlistList->SetSelection(i);
+            updatePlaylist(playlist);
+            audioTrack = (*playlist)->getBeginIterator();
+            playAudioTrack(audioTrack);
+        }
+    }
+    else {
+        playAudioTrack(audioTrack);
+    }
+     */
+    audioTrack++;
+    if(audioTrack == (*playlist)->getEndIterator()) {
+        playlist++;
+        if (playlist == musicLibrary->getEndPlaylistsIterator()) {
+            playlist = musicLibrary->getBeginPlaylistsIterator();
+            playlistList->SetSelection(0);
+        }
+        else {
+            int i = playlistList->GetSelection();
+            i++;
+            playlistList->SetSelection(i);
+        }
+        updatePlaylist(playlist);
+        audioTrackList->SetSelection(wxNOT_FOUND);
+        audioTrack = (*playlist)->getEndIterator();
+    }
+    else {
+        int i = audioTrackList->GetSelection();
+        i++;
+        audioTrackList->SetSelection(i);
+        playAudioTrack(audioTrack);
+    }
+
+}
+/*
+void MusicLibraryFrame::OnPlay(wxCommandEvent &event) {
+
+}
+*/
 
 /*
 bool MusicLibraryFrame::OnExit(wxCommandEventFunction) {
