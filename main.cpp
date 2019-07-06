@@ -3,13 +3,10 @@
 #include "ConcreteController.h"
 #include "MusicLibrary.h"
 
-//extern wxEventTable MusicLibraryFrame::GetEventTable() const {};
-
 class AudioPlayer : public wxApp {
 public:
     bool OnInit() override {
             auto *mls = new MusicLibrary();
-            //mls->newPlaylist("Musiclibrary");
             auto *conCon = new ConcreteController(mls);
             MusicLibraryFrame *myFrame = new MusicLibraryFrame(conCon, mls, NULL);
             myFrame->Show(true);

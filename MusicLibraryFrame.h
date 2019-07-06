@@ -29,9 +29,7 @@
 #include <wx/filedlg.h>
 #include <wx/choicdlg.h>
 #include <list>
-#include "Observer.h"
 #include "MusicLibrary.h"
-
 #include "ConcreteController.h"
 
 ///////////////////////////////////////////////////////////////////////////
@@ -40,33 +38,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Class musicLibraryFrame
 ///////////////////////////////////////////////////////////////////////////////
-class MusicLibraryFrame : public wxFrame, public Observer {
+class MusicLibraryFrame : public wxFrame{
 
 private:
     MusicLibrary* musicLibrary;
     std::list<Playlist*>::iterator playlist;
-    //wxArrayString audiotracksTitles;
     wxArrayString playlistsNames;
-
-    //wxMediaState mediaState;
-
-
     std::list<AudioTrack*>::iterator audioTrack;
-
-    /*
-    std::list <AudioTrack> audioTracks;
-    std::list <Playlist> playlists;
-    bool musicLibraryLoop;
-    bool musicLibraryShuffle;
-     */
-
-
     ConcreteController* concreteController;
-
-
-    //wxDECLARE_EVENT_TABLE();
-
-
 
 protected:
     wxListBox* playlistList;
@@ -77,14 +56,9 @@ protected:
     wxMenuBar* menuBar;
     wxMenu* menuPlaylist;
     wxMenu* menuMusicLibrary;
-
     wxButton* buttonPlay;
     wxButton* buttonPause;
 
-
-
-
-	//wxButton* buttonHome;
 
     // Virtual event handlers, overide them in your derived class
 	virtual void buttonLoopOnButtonClick( wxCommandEvent& event );
@@ -108,7 +82,6 @@ protected:
 
 	void OnMediaLoaded(wxCommandEvent& event);
 	void OnMediaFinished(wxCommandEvent& event);
-	//void OnPlay(wxCommandEvent& event);
 	void newPlaylist();
 	void newAudioTrack();
 	void playAudioTrack(std::list<AudioTrack*>::iterator au);
@@ -121,28 +94,13 @@ public:
 	MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* ml, wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Music Library"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ) ;
 
 
-    void update() override;
+    void update();
     void updatePlaylist(std::list<Playlist*>::iterator it);
 
 
-    ~MusicLibraryFrame() override;
+    ~MusicLibraryFrame();
 	
 };
 
 
-/*
-enum {
-    ID_OK = 1;
-};
-
-
-wxBEGIN_EVENT_TABLE(MusicLibraryFrame, wxFrame)
-      EVT_MENU(ID_Loop, MusicLibraryFrame::buttonLoopOnButtonClick)
-      EVT_MENU(ID_Shuffle, MusicLibraryFrame::buttonShuffleOnButtonClick)
-      EVT_MENU(ID_PlaylistNew, MusicLibraryFrame::menuItemPlaylistNewOnMenuSelection)
-      EVT_MENU(ID_PlaylistDelete, MusicLibraryFrame::menuItemPlaylistDeleteOnMenuSelection)
-      EVT_MENU(ID_AudioTrackAdd, MusicLibraryFrame::menuItemAudioTrackAddOnMenuSelection)
-      EVT_MENU(ID_AudioTrackDelete, MusicLibraryFrame::menuItemAudioTrackDeleteOnMenuSelection)
-wxEND_EVENT_TABLE()
-*/
 #endif //__MUSICLIBRARYFRAME_H__

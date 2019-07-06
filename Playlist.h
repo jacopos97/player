@@ -12,37 +12,29 @@
 #include <utility>
 #include <time.h>
 #include <wx/arrstr.h>
-#include "Subject.h"
 #include "AudioTrack.h"
 
 
-class Playlist : public Subject {
+class Playlist {
 public:
     explicit Playlist(const wxString &n = "NewPlaylist") : name(n), loop(false), shuffle(false){};
     bool operator==(const Playlist& p) const;
     bool operator!=(const Playlist& p) const;
     void addTrack(AudioTrack* audioTrack);
     void removeTrack(int pos);
-    //void moveTrack(std::list<AudioTrack>::iterator selectedAudioTrack, std::list<AudioTrack>::iterator desiredPositionIterator);
-    //void playAudioTrack(AudioTrack* audioTrack);
-    //void play();
     void changeName(wxString n);
     bool isLoop() const;
-    void setLoop(bool loop);
     bool isShuffle() const;
-    void setShuffle(bool shuffle);
     const wxString &getName() const;
     std::list<AudioTrack*>::iterator  getBeginIterator();
     std::list<AudioTrack*>::iterator getEndIterator();
-    ~Playlist() override = default;
+    ~Playlist() = default;
     std::list<AudioTrack*>::iterator getAudioTrack(int pos);
     unsigned long getSize() const;
-    void registerObserver (Observer *o) override;
-    void removeObserver (Observer *o) override;
-    void notifyObserver () override;
     wxArrayString getArrayString();
     int checkAudioTrackPresence(wxString audioTrackTitle);
     bool checkPossibleDuplicateTrack (wxString audioTrackTitle);
+    int getRandomAudioTrack(std::list<AudioTrack*>::iterator au);
 
 
 private:
@@ -50,7 +42,6 @@ private:
     wxString name;
     bool loop;
     bool shuffle;
-    std::list <Observer*> observers;
     wxArrayString audioTracksTitles;
 };
 

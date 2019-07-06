@@ -13,7 +13,6 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 
 	concreteController = conCon;
 	musicLibrary = ml;
-	//this->drawMusicLibraryFrame();
 
 
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
@@ -26,7 +25,6 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 	
 	playlistList = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 ); 
 	playlistList->SetMinSize( wxSize( 90,-1 ) );
-    //playlistList->Append("Musiclibrary");
 
 	
 	bSizerLibraryMusic->Add( playlistList, 0, wxALL|wxEXPAND, 0 );
@@ -47,7 +45,6 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 	mediaCtrlAudioTrack->SetVolume(1);
 	
 	mediaCtrlAudioTrack->Stop();
-	//mediaState = mediaCtrlAudioTrack->GetState();
 	bSizerMediaCtrl->Add( mediaCtrlAudioTrack, 1, wxALL|wxEXPAND, 0 );
 
     wxBoxSizer* bSizerPlayPause;
@@ -133,13 +130,9 @@ MusicLibraryFrame::MusicLibraryFrame(ConcreteController* conCon, MusicLibrary* m
 
 
 	playlist = musicLibrary->getBeginPlaylistsIterator();
-	//audioTrack = (*playlist)->getBeginIterator();
+	audioTrack = (*playlist)->getEndIterator();
 	update();
-
-
-	//mediaCtrlAudioTrack->Load(static_cast<wxURI>("file:///home/jacopo/Musica/Julie_Li_-_01_-_resound.mp3"));
-	//mediaCtrlAudioTrack->Load("Scott_Holmes_-_Our_Big_Adventure.mp3");
-
+	
 
 	// Connect Events
 	buttonLoop->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MusicLibraryFrame::buttonLoopOnButtonClick ), NULL, this );
@@ -171,31 +164,7 @@ MusicLibraryFrame::~MusicLibraryFrame()
 
 
 
-
-
 void MusicLibraryFrame::update() {
-    /*
-    auto musicLibraryAudioTracksIterator = musicLibrary->getBeginAudioTracksIterator();
-    while(audioTracks.size() != musicLibrary->getAudioTracksSize()) {
-        audioTracks.push_back(*musicLibraryAudioTracksIterator);
-        musicLibraryAudioTracksIterator++;
-    }
-    auto musicLibraryPlaylistIterator = musicLibrary->getBeginPlaylistsIterator();
-    while (playlists.size() != musicLibrary->getPlaylistsSize()) {
-        playlists.push_back(*musicLibraryPlaylistIterator);
-        musicLibraryPlaylistIterator++;
-    }
-
-
-    musicLibraryLoop = musicLibrary->isLoop();
-    musicLibraryShuffle = musicLibrary->isShuffle();
-
-
-
-      Refresh();
-      Update();
-  */
-
     playlistList->Clear();
     auto musicLibraryPlaylistIterator = musicLibrary->getBeginPlaylistsIterator();
     auto endPlaylistIterator = musicLibrary->getEndPlaylistsIterator();
@@ -203,32 +172,16 @@ void MusicLibraryFrame::update() {
         playlistList->Append((*musicLibraryPlaylistIterator)->getName());
         musicLibraryPlaylistIterator++;
     }
-/*
-    audioTrackList->Clear();
-    auto musicLibraryAudioTrackIterator = musicLibrary->getBeginAudioTracksIterator();
-    auto endAudioTrackIterator = musicLibrary->getEndAudioTracksIterator();
-    while (musicLibraryAudioTrackIterator != endAudioTrackIterator) {
-        audioTrackList->Append(musicLibraryAudioTrackIterator->getFileName());
-        musicLibraryAudioTrackIterator++;
-    }
-    */
 }
 
 
-
-
-
-
-
 void MusicLibraryFrame::buttonLoopOnButtonClick(wxCommandEvent &event) {
-
     bool loop = !(musicLibrary->isLoop());
     concreteController->setLoopMusicLibrary(loop);
     if (loop)
         buttonLoop->SetBackgroundColour(*wxLIGHT_GREY);
     else
         buttonLoop->SetBackgroundColour(*wxWHITE);
-
 }
 
 
@@ -239,27 +192,18 @@ void MusicLibraryFrame::buttonShuffleOnButtonClick(wxCommandEvent &event) {
         buttonShuffle->SetBackgroundColour(*wxLIGHT_GREY);
     else
         buttonShuffle->SetBackgroundColour(*wxWHITE);
-    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED);
-        //(*playlist)->play();
 }
 
 
 void MusicLibraryFrame::menuItemPlaylistNewOnMenuSelection(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     newPlaylist();
-    //wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist", wxOK | wxCENTRE | wxWS_EX_VALIDATE_RECURSIVELY);
-    /*
-    wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist");
-    if(playlistName.ShowModal() == wxID_OK) {
-        concreteController->newPlaylist(playlistName.GetValue());
-        auto it = musicLibrary->getEndPlaylistsIterator();
-        it--;
-        playlistsNames.Add((*it)->getName());
-        update();
-    }
-     */
 }
 
 void MusicLibraryFrame::menuItemPlaylistDeleteOnMenuSelection(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     auto mLPlaylist = musicLibrary->getBeginPlaylistsIterator();
     mLPlaylist++;
     if(mLPlaylist == musicLibrary->getEndPlaylistsIterator()) {
@@ -267,22 +211,9 @@ void MusicLibraryFrame::menuItemPlaylistDeleteOnMenuSelection(wxCommandEvent &ev
         errorMessage.ShowModal();
     }
     else {
-        //void** ptr = nullptr;
-        //wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Delete playlist", playlistsNames, ptr, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxOK | wxCENTRE);
         wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Delete playlist", playlistsNames);
         if (playlistsList.ShowModal() == wxID_OK) {
-            //wxString selectedPlaylistName = playlistsList.GetStringSelection();
             int desiredPlaylistIndex = playlistsList.GetSelection();
-            /*
-            auto selectedPlaylist = musicLibrary->getBeginPlaylistsIterator();
-            selectedPlaylist++;
-            for(int i = 0; i <= desiredPlaylistIndex; i++)
-                selectedPlaylist++;
-                */
-            /*
-            while ((*selectedPlaylist)->getName() != selectedPlaylistName)
-                selectedPlaylist++;
-                */
             auto it = musicLibrary->getBeginPlaylistsIterator();
             for (int index = 0; index <= desiredPlaylistIndex; index++) {
                 it++;
@@ -294,59 +225,26 @@ void MusicLibraryFrame::menuItemPlaylistDeleteOnMenuSelection(wxCommandEvent &ev
             concreteController->removePlaylist(desiredPlaylistIndex);
             playlistsNames.RemoveAt(static_cast<size_t>(desiredPlaylistIndex));
             update();
-            //playlistsNames.Remove(selectedPlaylistName);
         }
     }
 }
 
 void MusicLibraryFrame::menuItemAudioTrackAddOnMenuSelection(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     newAudioTrack();
-    /*
-    wxFileDialog newAudioTrack(NULL, "Choose a mp3 file:", wxEmptyString, wxEmptyString, "*.mp3");
-    if(newAudioTrack.ShowModal() == wxID_OK) {
-        wxString selectedTrackTitle = newAudioTrack.GetFilename();
-        bool duplicate = (*musicLibrary->getBeginPlaylistsIterator())->checkPossibleDuplicateTrack(selectedTrackTitle);
-        if (duplicate) {
-            wxMessageDialog errorMessage(NULL, "File already present in the music library", "Error!");
-            errorMessage.ShowModal();
-        } else {
-            concreteController->newAudioTrack(selectedTrackTitle, static_cast<wxURI>(newAudioTrack.GetPath()),
-                                              mediaCtrlAudioTrack);
-            auto it = musicLibrary->getEndAudioTracksIterator();
-            it--;
-            //audiotracksTitles.Add((*it)->getFileName());
-            if (playlist == musicLibrary->getBeginPlaylistsIterator())
-                updatePlaylist(playlist);
-
-
-            //wxURI path = newAudioTrack.GetPath();
-            //mediaCtrlAudioTrack->Load(path);
-            //mediaCtrlAudioTrack->Load(selectedTrackTitle);
-            //mediaCtrlAudioTrack->LoadURI(selectedTrackTitle);
-            //mediaCtrlAudioTrack->LoadURI(newAudioTrack.GetPath());
-
-
-        }
-    }
-     */
 }
 
 void MusicLibraryFrame::menuItemAudioTrackDeleteOnMenuSelection(wxCommandEvent &event) {
-    //auto mLPlaylist = musicLibrary->getBeginPlaylistsIterator();
-    //auto mLTrackIterator = (*musicLibrary->getBeginPlaylistsIterator())->getBeginIterator();
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     if((*musicLibrary->getBeginPlaylistsIterator())->getBeginIterator() == (*musicLibrary->getBeginPlaylistsIterator())->getEndIterator()) {
         wxMessageDialog errorMessage(NULL, "Ops!!! There are not effaceable audiotracks!", "Error!");
         errorMessage.ShowModal();
     }
     else {
-        //void** ptr = nullptr;
-        //wxSingleChoiceDialog audioTracksList(NULL, "Select desired audiotrack:", "Remove track ", (*musicLibrary->getBeginPlaylistsIterator())->getArrayString(), ptr, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxOK | wxCENTRE);
-        wxSingleChoiceDialog audioTracksList(NULL, "Select desired audiotrack:", "Remove track ",
-                                             (*musicLibrary->getBeginPlaylistsIterator())->getArrayString());
+        wxSingleChoiceDialog audioTracksList(NULL, "Select desired audiotrack:", "Remove track ",(*musicLibrary->getBeginPlaylistsIterator())->getArrayString());
         if (audioTracksList.ShowModal() == wxID_OK) {
-
-            //audiotracksTitles.RemoveAt(static_cast<size_t>(audioTracksList.GetSelection()));
-
             wxString selectedAudiotrack = audioTracksList.GetStringSelection();
             auto it = musicLibrary->getBeginPlaylistsIterator();
             it++;
@@ -368,7 +266,8 @@ void MusicLibraryFrame::menuItemAudioTrackDeleteOnMenuSelection(wxCommandEvent &
 }
 
 void MusicLibraryFrame::playlistListItemOnClick(wxCommandEvent &event) {
-
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     auto it = musicLibrary->getBeginPlaylistsIterator();
     for(int i = 1; i <= playlistList->GetSelection(); i++)
        it++;
@@ -377,75 +276,10 @@ void MusicLibraryFrame::playlistListItemOnClick(wxCommandEvent &event) {
         updatePlaylist(playlist);
         if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator()) {
             audioTrack = (*playlist)->getBeginIterator();
+            audioTrackList->SetSelection(0);
             playAudioTrack(audioTrack);
         }
     }
-
-/*
-
-    wxBoxSizer* bSizerMainFrame;
-    bSizerMainFrame = new wxBoxSizer( wxVERTICAL );
-
-    audioTrackList = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    audioTrackList->SetMinSize( wxSize( -1,160 ) );
-
-    bSizerMainFrame->Add( audioTrackList, 0, wxALL|wxEXPAND, 0 );
-
-    wxBoxSizer* bSizerMediaCtrl;
-    bSizerMediaCtrl = new wxBoxSizer( wxHORIZONTAL );
-
-    mediaCtrlAudioTrack = new wxMediaCtrl( this, wxID_ANY, wxT(""), wxDefaultPosition, wxDefaultSize);
-    mediaCtrlAudioTrack->SetPlaybackRate(1);
-    mediaCtrlAudioTrack->SetVolume(1);
-
-    mediaCtrlAudioTrack->Stop();
-    bSizerMediaCtrl->Add( mediaCtrlAudioTrack, 1, wxALL|wxEXPAND, 0 );
-
-    wxBoxSizer* bSizerButtons;
-    bSizerButtons = new wxBoxSizer( wxVERTICAL );
-
-    buttonLoop = new wxButton( this, wxID_ANY, wxT("Loop"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerButtons->Add( buttonLoop, 1, 0, 0 );
-
-    buttonShuffle = new wxButton( this, wxID_ANY, wxT("Shuffle"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerButtons->Add( buttonShuffle, 1, wxALL, 0 );
-
-
-    bSizerMediaCtrl->Add( bSizerButtons, 0, wxALIGN_BOTTOM|wxEXPAND, 0 );
-
-    buttonHome = new wxButton( this, wxID_ANY, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerMediaCtrl->Add( buttonHome, 0, wxALL|wxEXPAND, 0 );
-
-
-    bSizerMainFrame->Add( bSizerMediaCtrl, 1, wxALL|wxEXPAND, 0 );
-
-
-    this->SetSizer( bSizerMainFrame );
-    bSizerMainFrame->Show(true);
-    this->Layout();
-    menuBar = new wxMenuBar( 0 );
-    menuMusicLibrary = new wxMenu();
-    wxMenuItem* menuItemAudioTrackAdd;
-    menuItemAudioTrackAdd = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Add") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackAdd );
-
-    wxMenuItem* menuItemAudioTrackRemove;
-    menuItemAudioTrackRemove = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Remove") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackRemove );
-
-    wxMenuItem* menuItemAudioTrackMove;
-    menuItemAudioTrackMove = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Move") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackMove );
-
-    menuBar->Append( menuMusicLibrary, wxT("AudioTrack") );
-
-    this->SetMenuBar( menuBar );
-
-
-    this->Centre( wxBOTH );
-
-    buttonHome->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MusicLibraryFrame::buttonHomeOnButtonClick ), NULL, this );
-*/
 }
 
 void MusicLibraryFrame::updatePlaylist(std::list<Playlist*>::iterator it) {
@@ -459,6 +293,8 @@ void MusicLibraryFrame::updatePlaylist(std::list<Playlist*>::iterator it) {
 }
 
 void MusicLibraryFrame::menuItemPlaylistAddTrackOnMenuSelection(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     auto mLPlaylist = musicLibrary->getBeginPlaylistsIterator();
     mLPlaylist++;
     if(mLPlaylist == musicLibrary->getEndPlaylistsIterator()) {
@@ -473,16 +309,8 @@ void MusicLibraryFrame::menuItemPlaylistAddTrackOnMenuSelection(wxCommandEvent &
                 newAudioTrack();
         }
         else {
-            //void** ptr = nullptr;
-            //wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Add track to playlist", playlistsNames, ptr, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxOK | wxCENTRE);
             wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Add track to playlist", playlistsNames);
             if (playlistsList.ShowModal() == wxID_OK) {
-                /*
-                wxString selectedPlaylistName = playlistsList.GetStringSelection();
-                auto selectedPlaylist = musicLibrary->getBeginPlaylistsIterator();
-                while((*selectedPlaylist)->getName() != selectedPlaylistName)
-                    selectedPlaylist++;
-                */
                 auto selectedPlaylist = musicLibrary->getBeginPlaylistsIterator();
                 for (int i = 0; i <= playlistsList.GetSelection(); i++)
                     selectedPlaylist++;
@@ -499,7 +327,6 @@ void MusicLibraryFrame::menuItemPlaylistAddTrackOnMenuSelection(wxCommandEvent &
                         while ((*desiredAudioTrack)->getFileName() != desiredAudiotrackTitle)
                             desiredAudioTrack++;
                         concreteController->addTrackPlaylist(*desiredAudioTrack, *selectedPlaylist);
-                        // (*selectedPlaylist)->addTrack(*desiredAudioTrack);
                         if (playlist == selectedPlaylist)
                             updatePlaylist(selectedPlaylist);
                     }
@@ -510,6 +337,8 @@ void MusicLibraryFrame::menuItemPlaylistAddTrackOnMenuSelection(wxCommandEvent &
 }
 
 void MusicLibraryFrame::menuItemPlaylistDeleteTrackOnMenuSelection(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     auto mLPlaylist = musicLibrary->getBeginPlaylistsIterator();
     mLPlaylist++;
     if(mLPlaylist == musicLibrary->getEndPlaylistsIterator()) {
@@ -517,8 +346,6 @@ void MusicLibraryFrame::menuItemPlaylistDeleteTrackOnMenuSelection(wxCommandEven
         errorMessage.ShowModal();
     }
     else {
-        //void** ptr = nullptr;
-        //wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Remove track to playlist", playlistsNames, ptr, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxOK | wxCENTRE);
         wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Remove track to playlist", playlistsNames);
         if (playlistsList.ShowModal() == wxID_OK) {
             auto selectedPlaylist = musicLibrary->getBeginPlaylistsIterator();
@@ -534,18 +361,6 @@ void MusicLibraryFrame::menuItemPlaylistDeleteTrackOnMenuSelection(wxCommandEven
                     concreteController->removeTrackPlaylist(audioTracksList.GetSelection(), *selectedPlaylist);
                     if (playlist == selectedPlaylist)
                         updatePlaylist(playlist);
-
-
-                    /*
-                    auto desiredAudiotrack = audioTracksList.GetStringSelection();
-                    auto it = (*selectedPlaylist)->getBeginIterator();
-                    int index = 0;
-                    while ((*it)->getFileName() != desiredAudiotrack){
-                        it++;
-                    concreteController->removeTrackPlaylist();
-                    if (playlist == selectedPlaylist)
-                        updatePlaylist(playlist);
-                        */
                 }
             }
         }
@@ -553,6 +368,8 @@ void MusicLibraryFrame::menuItemPlaylistDeleteTrackOnMenuSelection(wxCommandEven
 }
 
 void MusicLibraryFrame::menuItemPlaylistChangeNameOnMenuSelection(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     auto mLPlaylist = musicLibrary->getBeginPlaylistsIterator();
     mLPlaylist++;
     if(mLPlaylist == musicLibrary->getEndPlaylistsIterator()) {
@@ -561,8 +378,6 @@ void MusicLibraryFrame::menuItemPlaylistChangeNameOnMenuSelection(wxCommandEvent
             newPlaylist();
     }
     else {
-        //void** ptr = nullptr;
-        //wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Change Name", playlistsNames, ptr, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxOK | wxCENTRE);
         wxSingleChoiceDialog playlistsList(NULL, "Select desired playlist:", "Change Name", playlistsNames);
         if (playlistsList.ShowModal() == wxID_OK) {
             auto playlistPos = playlistsList.GetSelection();
@@ -587,24 +402,11 @@ void MusicLibraryFrame::menuItemPlaylistChangeNameOnMenuSelection(wxCommandEvent
 }
 
 void MusicLibraryFrame::audioTrackListItemOnClick(wxCommandEvent &event) {
+    if (mediaCtrlAudioTrack->GetState() != wxMEDIASTATE_STOPPED)
+        mediaCtrlAudioTrack->Stop();
     int audioTrackPos = audioTrackList->GetSelection();
     audioTrack = (*playlist)->getAudioTrack(audioTrackPos);
     playAudioTrack(audioTrack);
-    //auto it = (*playlist)->getBeginIterator();
-    /*
-    for (int index = 0; index <= audioTrackPos; index++)
-        it++;
-        */
-    /*
-    int index = 0;
-    while (index != audioTrackPos) {
-        index++;
-        it++;
-    }
-     */
-    //audioTrack = it;
-    //(*playlist)->playAudioTrack(*it);
-    //concreteController->playTrackPlaylist((*playlist), (*it));
 }
 
 
@@ -617,7 +419,6 @@ void MusicLibraryFrame::OnMediaLoaded(wxCommandEvent &event) {
 }
 
 void MusicLibraryFrame::newPlaylist() {
-    //wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist", wxOK | wxCENTRE | wxWS_EX_VALIDATE_RECURSIVELY);
     wxTextEntryDialog playlistName(NULL, "Playlist name:", "Insert playlist name", "NewPlaylist");
     if(playlistName.ShowModal() == wxID_OK) {
         if (playlistName.GetValue() == "") {
@@ -652,46 +453,29 @@ void MusicLibraryFrame::newAudioTrack() {
         else {
             wxString prePath = "file://";
             prePath.Append(newAudioTrack.GetPath());
-            //wxURI filePath = static_cast<wxURI>(prePath.Append(newAudioTrack.GetPath()));
             concreteController->newAudioTrack(selectedTrackTitle, prePath, &mediaCtrlAudioTrack);
-            auto it = musicLibrary->getEndAudioTracksIterator();
-            it--;
-            //audiotracksTitles.Add((*it)->getFileName());
-            if (playlist == musicLibrary->getBeginPlaylistsIterator())
+            if (playlist == musicLibrary->getBeginPlaylistsIterator()) 
                 updatePlaylist(playlist);
-
-
-            //wxURI path = newAudioTrack.GetPath();
-            //mediaCtrlAudioTrack->Load(path);
-            //mediaCtrlAudioTrack->Load(selectedTrackTitle);
-            //mediaCtrlAudioTrack->LoadURI(selectedTrackTitle);
-            //mediaCtrlAudioTrack->LoadURI(newAudioTrack.GetPath());
-
-
         }
 
     }
 }
 
 void MusicLibraryFrame::buttonPlayOnButtonClick(wxCommandEvent &event) {
-    /*
-    if (mediaState == wxMEDIASTATE_PLAYING) {
-        mediaCtrlAudioTrack->Pause();
-        mediaState = mediaCtrlAudioTrack->GetState();
+    if((*playlist)->getBeginIterator() != (*playlist)->getEndIterator()) {
+        if (mediaCtrlAudioTrack->GetState() == wxMEDIASTATE_STOPPED) {
+            if (audioTrack == (*playlist)->getEndIterator()) {
+                audioTrack = (*playlist)->getBeginIterator();
+                audioTrackList->SetSelection(0);
+            }
+            playAudioTrack(audioTrack);
+        } else if (mediaCtrlAudioTrack->GetState() == wxMEDIASTATE_PAUSED)
+            mediaCtrlAudioTrack->Play();
     }
     else {
-        if(mediaState == wxMEDIASTATE_STOPPED)
-            (*playlist)->play();
+        wxMessageDialog errorMessage(NULL, "No file in this playlist!!!", "Error!");
+        errorMessage.ShowModal();
     }
-     */
-
-    /*
-    if (mediaCtrlAudioTrack->GetState() == wxMEDIASTATE_STOPPED)
-        if ((*playlist)->getBeginIterator() != (*playlist)->getEndIterator())
-            (*playlist)->play();
-    if (mediaCtrlAudioTrack->GetState() == wxMEDIASTATE_PAUSED)
-        mediaCtrlAudioTrack->Play();
-*/
 }
 
 void MusicLibraryFrame::buttonPauseOnButtonClick(wxCommandEvent &event) {
@@ -717,274 +501,39 @@ void MusicLibraryFrame::playAudioTrack(std::list<AudioTrack*>::iterator au) {
 }
 
 void MusicLibraryFrame::OnMediaFinished(wxCommandEvent &event) {
-    //auto au = (*playlist)->getAudioTrack(audioTrackList->GetSelection());
-    //au++;
-    /*
-    audioTrack++;
-    if(audioTrack == (*playlist)->getEndIterator()) {
-        playlist++;
-        if (playlist == musicLibrary->getEndPlaylistsIterator()) {
-            playlist = musicLibrary->getBeginPlaylistsIterator();
-            playlistList->SetSelection(0);
-            updatePlaylist(playlist);
-        }
-        else if((*playlist)->getBeginIterator() == (*playlist)->getEndIterator()){
-            int i = playlistList->GetSelection();
+    if(musicLibrary->isShuffle()){
+        int nextPos = (*playlist)->getRandomAudioTrack(audioTrack);
+        auto au = (*playlist)->getAudioTrack(nextPos);
+        audioTrack = au;
+        audioTrackList->SetSelection(nextPos);
+        playAudioTrack(audioTrack);
+    }
+    else {
+        audioTrack++;
+        if (audioTrack == (*playlist)->getEndIterator()) {
+            if (musicLibrary->isLoop()) {
+                audioTrack = (*playlist)->getBeginIterator();
+                audioTrackList->SetSelection(0);
+                playAudioTrack(audioTrack);
+            } else {
+                playlist++;
+                if (playlist == musicLibrary->getEndPlaylistsIterator()) {
+                    playlist = musicLibrary->getBeginPlaylistsIterator();
+                    playlistList->SetSelection(0);
+                } else {
+                    int i = playlistList->GetSelection();
+                    i++;
+                    playlistList->SetSelection(i);
+                }
+                updatePlaylist(playlist);
+                audioTrackList->SetSelection(wxNOT_FOUND);
+                audioTrack = (*playlist)->getEndIterator();
+            }
+        } else {
+            int i = audioTrackList->GetSelection();
             i++;
-            playlistList->SetSelection(i);
-            updatePlaylist(playlist);
-            wxMessageDialog errorMessage(NULL, "Empty playlist!!!", "Error!");
-            errorMessage.ShowModal();
-        }
-        else{
-            int i = playlistList->GetSelection();
-            i++;
-            playlistList->SetSelection(i);
-            updatePlaylist(playlist);
-            audioTrack = (*playlist)->getBeginIterator();
+            audioTrackList->SetSelection(i);
             playAudioTrack(audioTrack);
         }
     }
-    else {
-        playAudioTrack(audioTrack);
-    }
-     */
-    audioTrack++;
-    if(audioTrack == (*playlist)->getEndIterator()) {
-        playlist++;
-        if (playlist == musicLibrary->getEndPlaylistsIterator()) {
-            playlist = musicLibrary->getBeginPlaylistsIterator();
-            playlistList->SetSelection(0);
-        }
-        else {
-            int i = playlistList->GetSelection();
-            i++;
-            playlistList->SetSelection(i);
-        }
-        updatePlaylist(playlist);
-        audioTrackList->SetSelection(wxNOT_FOUND);
-        audioTrack = (*playlist)->getEndIterator();
-    }
-    else {
-        int i = audioTrackList->GetSelection();
-        i++;
-        audioTrackList->SetSelection(i);
-        playAudioTrack(audioTrack);
-    }
-
 }
-/*
-void MusicLibraryFrame::OnPlay(wxCommandEvent &event) {
-
-}
-*/
-
-/*
-bool MusicLibraryFrame::OnExit(wxCommandEventFunction) {
-    return false;
-}
-
-*/
-
-
-
-/*
-void MusicLibraryFrame::buttonHomeOnButtonClick(wxCommandEvent &event) {
-
-    this->drawMusicLibraryFrame();
-    this->update();
-
-
-    wxBoxSizer* bSizerMusicLibrary;
-    bSizerMusicLibrary = new wxBoxSizer( wxHORIZONTAL );
-
-    wxBoxSizer* bSizerLibraryMusic;
-    bSizerLibraryMusic = new wxBoxSizer( wxHORIZONTAL );
-
-    playlistList = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    playlistList->SetMinSize( wxSize( 90,-1 ) );
-
-
-    bSizerLibraryMusic->Add( playlistList, 0, wxALL|wxEXPAND, 0 );
-
-    wxBoxSizer* bSizerAudioTrack;
-    bSizerAudioTrack = new wxBoxSizer( wxVERTICAL );
-
-    audioTrackList = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    audioTrackList->SetMinSize( wxSize( -1,160 ) );
-
-    bSizerAudioTrack->Add( audioTrackList, 0, wxALL|wxEXPAND|wxALIGN_RIGHT, 0 );
-
-    wxBoxSizer* bSizerMediaCtrl;
-    bSizerMediaCtrl = new wxBoxSizer( wxHORIZONTAL );
-
-    mediaCtrlAudioTrack = new wxMediaCtrl( this, wxID_ANY, wxT(""), wxDefaultPosition, wxDefaultSize);
-    mediaCtrlAudioTrack->SetPlaybackRate(1);
-    mediaCtrlAudioTrack->SetVolume(1);
-
-    mediaCtrlAudioTrack->Stop();
-    bSizerMediaCtrl->Add( mediaCtrlAudioTrack, 1, wxALL|wxEXPAND, 0 );
-
-    wxBoxSizer* bSizerButtons;
-    bSizerButtons = new wxBoxSizer( wxVERTICAL );
-
-    buttonLoop = new wxButton( this, wxID_ANY, wxT("Loop"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerButtons->Add( buttonLoop, 1, wxALL, 0 );
-
-    buttonShuffle = new wxButton( this, wxID_ANY, wxT("Shuffle"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerButtons->Add( buttonShuffle, 1, 0, 0 );
-
-
-    bSizerMediaCtrl->Add( bSizerButtons, 0, wxALL|wxALIGN_BOTTOM|wxEXPAND, 0 );
-
-
-    bSizerAudioTrack->Add( bSizerMediaCtrl, 1, wxALL|wxEXPAND, 0 );
-
-
-    bSizerLibraryMusic->Add( bSizerAudioTrack, 1, wxALL|wxEXPAND, 0 );
-
-
-    bSizerMusicLibrary->Add( bSizerLibraryMusic, 1, wxALL|wxEXPAND, 0 );
-
-
-    this->SetSizer( bSizerMusicLibrary );
-    this->Layout();
-    menuBar = new wxMenuBar( 0 );
-    menuPlaylist = new wxMenu();
-    wxMenuItem* menuItemPlaylistNew;
-    menuItemPlaylistNew = new wxMenuItem( menuPlaylist, wxID_ANY, wxString( wxT("New") ) , wxEmptyString, wxITEM_NORMAL );
-    menuPlaylist->Append( menuItemPlaylistNew );
-
-    wxMenuItem* menuItemPlaylistDelete;
-    menuItemPlaylistDelete = new wxMenuItem( menuPlaylist, wxID_ANY, wxString( wxT("Delete") ) , wxEmptyString, wxITEM_NORMAL );
-    menuPlaylist->Append( menuItemPlaylistDelete );
-
-    menuBar->Append( menuPlaylist, wxT("Playlist") );
-
-    menuMusicLibrary = new wxMenu();
-    wxMenuItem* menuItemAudioTrackAdd;
-    menuItemAudioTrackAdd = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Add") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackAdd );
-
-    wxMenuItem* menuItemAudioTrackDelete;
-    menuItemAudioTrackDelete = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Delete") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackDelete );
-
-    menuBar->Append( menuMusicLibrary, wxT("AudioTrack") );
-
-    this->SetMenuBar( menuBar );
-
-
-    this->Centre( wxBOTH );
-
-
-}
-*/
-
-
-/*
-void MusicLibraryFrame::drawMusicLibraryFrame() {
-    this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-
-    wxBoxSizer* bSizerMusicLibrary;
-    bSizerMusicLibrary = new wxBoxSizer( wxHORIZONTAL );
-
-    wxBoxSizer* bSizerLibraryMusic;
-    bSizerLibraryMusic = new wxBoxSizer( wxHORIZONTAL );
-
-    playlistList = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    playlistList->SetMinSize( wxSize( 90,-1 ) );
-
-
-    bSizerLibraryMusic->Add( playlistList, 0, wxALL|wxEXPAND, 0 );
-
-    wxBoxSizer* bSizerAudioTrack;
-    bSizerAudioTrack = new wxBoxSizer( wxVERTICAL );
-
-    audioTrackList = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    audioTrackList->SetMinSize( wxSize( -1,160 ) );
-
-    bSizerAudioTrack->Add( audioTrackList, 0, wxALL|wxEXPAND|wxALIGN_RIGHT, 0 );
-
-    wxBoxSizer* bSizerMediaCtrl;
-    bSizerMediaCtrl = new wxBoxSizer( wxHORIZONTAL );
-
-    mediaCtrlAudioTrack = new wxMediaCtrl( this, wxID_ANY, wxT(""), wxDefaultPosition, wxDefaultSize);
-    mediaCtrlAudioTrack->SetPlaybackRate(1);
-    mediaCtrlAudioTrack->SetVolume(1);
-
-    mediaCtrlAudioTrack->Stop();
-    bSizerMediaCtrl->Add( mediaCtrlAudioTrack, 1, wxALL|wxEXPAND, 0 );
-
-    wxBoxSizer* bSizerButtons;
-    bSizerButtons = new wxBoxSizer( wxVERTICAL );
-
-    buttonLoop = new wxButton( this, wxID_ANY, wxT("Loop"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerButtons->Add( buttonLoop, 1, wxALL, 0 );
-
-    buttonShuffle = new wxButton( this, wxID_ANY, wxT("Shuffle"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizerButtons->Add( buttonShuffle, 1, 0, 0 );
-
-
-    bSizerMediaCtrl->Add( bSizerButtons, 0, wxALL|wxALIGN_BOTTOM|wxEXPAND, 0 );
-
-
-    bSizerAudioTrack->Add( bSizerMediaCtrl, 1, wxALL|wxEXPAND, 0 );
-
-
-    bSizerLibraryMusic->Add( bSizerAudioTrack, 1, wxALL|wxEXPAND, 0 );
-
-
-    bSizerMusicLibrary->Add( bSizerLibraryMusic, 1, wxALL|wxEXPAND, 0 );
-
-
-    this->SetSizer( bSizerMusicLibrary );
-    this->Layout();
-    menuBar = new wxMenuBar( 0 );
-    menuPlaylist = new wxMenu();
-    wxMenuItem* menuItemPlaylistNew;
-    menuItemPlaylistNew = new wxMenuItem( menuPlaylist, wxID_ANY, wxString( wxT("New") ) , wxEmptyString, wxITEM_NORMAL );
-    menuPlaylist->Append( menuItemPlaylistNew );
-
-    wxMenuItem* menuItemPlaylistDelete;
-    menuItemPlaylistDelete = new wxMenuItem( menuPlaylist, wxID_ANY, wxString( wxT("Delete") ) , wxEmptyString, wxITEM_NORMAL );
-    menuPlaylist->Append( menuItemPlaylistDelete );
-
-    menuBar->Append( menuPlaylist, wxT("Playlist") );
-
-    menuMusicLibrary = new wxMenu();
-    wxMenuItem* menuItemAudioTrackAdd;
-    menuItemAudioTrackAdd = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Add") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackAdd );
-
-    wxMenuItem* menuItemAudioTrackDelete;
-    menuItemAudioTrackDelete = new wxMenuItem( menuMusicLibrary, wxID_ANY, wxString( wxT("Delete") ) , wxEmptyString, wxITEM_NORMAL );
-    menuMusicLibrary->Append( menuItemAudioTrackDelete );
-
-    menuBar->Append( menuMusicLibrary, wxT("AudioTrack") );
-
-    this->SetMenuBar( menuBar );
-
-
-    this->Centre( wxBOTH );
-
-
-
-    // Connect Events
-    buttonLoop->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MusicLibraryFrame::buttonLoopOnButtonClick ), NULL, this );
-    buttonShuffle->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MusicLibraryFrame::buttonShuffleOnButtonClick ), NULL, this );
-    menuPlaylist->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MusicLibraryFrame::menuItemPlaylistNewOnMenuSelection ), this, menuItemPlaylistNew->GetId());
-    menuPlaylist->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MusicLibraryFrame::menuItemPlaylistDeleteOnMenuSelection ), this, menuItemPlaylistDelete->GetId());
-    menuMusicLibrary->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MusicLibraryFrame::menuItemAudioTrackAddOnMenuSelection ), this, menuItemAudioTrackAdd->GetId());
-    menuMusicLibrary->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MusicLibraryFrame::menuItemAudioTrackDeleteOnMenuSelection ), this, menuItemAudioTrackDelete->GetId());
-    playlistList->Bind(wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler(MusicLibraryFrame::playlistListItemOnClick), this, playlistList->GetId());
-
-}
-
-*/
-
-
-
-
-
-
